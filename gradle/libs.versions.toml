@@ -1,0 +1,26 @@
+[versions]
+clikt = "4.4.0"
+dependencyAnalysis = "1.31.0"
+develocity = "3.17.5"
+java = "17"
+junitJupiter = "5.11.3"
+junitPlatform = "1.11.3"
+kotlin = "1.9.23"
+ktfmt = "0.53"
+shadow = "8.3.5"
+
+[libraries]
+assertj = { module = "org.assertj:assertj-core", version = "3.26.3" }
+clikt = { module = "com.github.ajalt.clikt:clikt", version.ref = "clikt" }
+dependencyAnalysisPlugin = { module = "com.autonomousapps:dependency-analysis-gradle-plugin", version.ref = "dependencyAnalysis" }
+develocityPlugin = { module = "com.gradle:develocity-gradle-plugin", version.ref = "develocity" }
+junitApi = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiter" }
+junitEngine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitJupiter" }
+junitLauncher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junitPlatform" }
+junitParams = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junitJupiter" }
+ktfmt = { module = "com.facebook:ktfmt", version.ref = "ktfmt" }
+
+[plugins]
+dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" }
+kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
