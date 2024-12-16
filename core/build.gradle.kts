@@ -1,4 +1,5 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -6,6 +7,25 @@ plugins {
 
   alias(libs.plugins.kotlin)
   alias(libs.plugins.shadow)
+  alias(libs.plugins.mavenPublish)
+}
+
+mavenPublishing {
+  publishToMavenCentral(SonatypeHost.S01, automaticRelease = true)
+//  signAllPublications()
+
+  pom {
+    name.set("kotlin-editor")
+  }
+}
+
+publishing {
+  publications {
+    create<MavenPublication>("distZip") {
+      artifactId = "kotlin-editor"
+      artifact(tasks.shadowDistZip)
+    }
+  }
 }
 
 dependencies {
@@ -45,7 +65,7 @@ application {
 val shadowJar = tasks.named("shadowJar", ShadowJar::class) {
   group = "Build"
   description = "Creates a fat jar"
-  archiveFileName = "kotlin-formatter-all.jar"
+  archiveFileName = "kotlin-formatter.jar"
   isPreserveFileTimestamps = false
   isReproducibleFileOrder = true
 
@@ -62,6 +82,7 @@ tasks.register("buildBinary", Sync::class.java) {
   from(shadowJar)
   into(layout.projectDirectory.dir("build/release"))
 }
+
 tasks.withType<Test>().configureEach { useJUnitPlatform() }
 
 tasks.named("test", Test::class.java).configure {

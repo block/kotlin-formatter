@@ -8,6 +8,7 @@ junitPlatform = "1.11.3"
 kotlin = "1.9.23"
 ktfmt = "0.53"
 shadow = "8.3.5"
+mavenPublish = "0.28.0"
 
 [libraries]
 assertj = { module = "org.assertj:assertj-core", version = "3.26.3" }
@@ -19,8 +20,10 @@ junitEngine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref =
 junitLauncher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junitPlatform" }
 junitParams = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junitJupiter" }
 ktfmt = { module = "com.facebook:ktfmt", version.ref = "ktfmt" }
+maven-publish-plugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "mavenPublish" }
 
 [plugins]
 dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" }
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
+mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }
