@@ -1,4 +1,4 @@
-package com.squareup.cash.codeformatter
+package xyz.block.codeformatter
 
 import com.facebook.ktfmt.format.Formatter as KtfmtFormatter
 import com.facebook.ktfmt.format.FormattingOptions

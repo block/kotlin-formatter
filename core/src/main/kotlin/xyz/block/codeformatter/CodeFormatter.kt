@@ -1,4 +1,4 @@
-package com.squareup.cash.codeformatter
+package xyz.block.codeformatter
 
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.PrintHelpMessage
@@ -9,7 +9,7 @@ import com.github.ajalt.clikt.parameters.arguments.multiple
 import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
-import com.squareup.cash.codeformatter.TriggerFormatter.Companion.FormattingResult
+import xyz.block.codeformatter.TriggerFormatter.Companion.FormattingResult
 import java.io.InputStream
 import java.time.Duration
 import java.time.Instant

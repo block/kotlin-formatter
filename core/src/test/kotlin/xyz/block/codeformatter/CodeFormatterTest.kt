@@ -1,4 +1,4 @@
-package com.squareup.cash.codeformatter
+package xyz.block.codeformatter
 
 import com.github.ajalt.clikt.testing.test
 import java.io.ByteArrayInputStream

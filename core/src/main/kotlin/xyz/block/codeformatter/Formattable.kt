@@ -1,4 +1,4 @@
-package com.squareup.cash.codeformatter
+package xyz.block.codeformatter
 
 internal interface Formattable {
   fun name(): String

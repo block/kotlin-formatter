@@ -1,4 +1,4 @@
-package com.squareup.cash.codeformatter
+package xyz.block.codeformatter
 
 import java.nio.file.Path
 import kotlin.io.path.pathString

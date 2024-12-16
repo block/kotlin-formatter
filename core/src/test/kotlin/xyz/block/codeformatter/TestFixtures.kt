@@ -1,7 +1,7 @@
-package com.squareup.cash.codeformatter
+package xyz.block.codeformatter
 
-import com.squareup.cash.codeformatter.GitStagingService.getStagedFiles
-import com.squareup.cash.codeformatter.GitStagingService.getStagedFormattableBlobs
+import xyz.block.codeformatter.GitStagingService.getStagedFiles
+import xyz.block.codeformatter.GitStagingService.getStagedFormattableBlobs
 import java.io.File
 import java.nio.file.Path
 

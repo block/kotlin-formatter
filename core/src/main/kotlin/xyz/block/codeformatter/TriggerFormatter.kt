@@ -1,4 +1,4 @@
-package com.squareup.cash.codeformatter
+package xyz.block.codeformatter
 
 import java.io.*
 import java.util.concurrent.atomic.AtomicLong

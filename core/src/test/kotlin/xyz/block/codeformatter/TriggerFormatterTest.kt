@@ -1,6 +1,6 @@
-package com.squareup.cash.codeformatter
+package xyz.block.codeformatter
 
-import com.squareup.cash.codeformatter.TriggerFormatter.Companion.FormattingResult
+import xyz.block.codeformatter.TriggerFormatter.Companion.FormattingResult
 import java.io.File
 import kotlin.io.path.name
 import org.assertj.core.api.Assertions.assertThat

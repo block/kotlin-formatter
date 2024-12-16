@@ -39,7 +39,7 @@ tasks.withType<KotlinCompile> {
 }
 
 application {
-  mainClass.set("com.squareup.cash.codeformatter.CodeFormatterKt")
+  mainClass.set("xyz.block.codeformatter.CodeFormatterKt")
 }
 
 val shadowJar = tasks.named("shadowJar", ShadowJar::class) {
