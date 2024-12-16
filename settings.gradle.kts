@@ -19,5 +19,5 @@ dependencyResolutionManagement {
   }
 }
 
-include("core")
+include("format")
 include("build-logic")
