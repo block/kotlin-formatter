@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
   id("application")
-  alias(libs.plugins.kotlin)
+  id("org.jetbrains.kotlin.jvm")
   alias(libs.plugins.shadow)
   alias(libs.plugins.mavenPublish)
 }

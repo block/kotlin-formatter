@@ -185,7 +185,7 @@ class FormattingConfigsTest {
     val serverExample1 = serverDir.resolve("Example1.kt").apply { writeText("", UTF_8) }
     val serverExample2 = subdir.resolve("Example2.kt").apply { writeText("", UTF_8) }
     val serverExample3 = subdir.resolve("Example3.kt").apply { writeText("", UTF_8) }
-    val serverExample4 = subdir.resolve("Example4.kt").apply { writeText("", UTF_8) }
+    subdir.resolve("Example4.kt").apply { writeText("", UTF_8) }
 
     TestUtils.withWorkingDir(serverDir) {
       GitProcessRunner.run("init")
@@ -193,8 +193,7 @@ class FormattingConfigsTest {
       TestUtils.setupGitUser() // needed for commit to work on CI
       GitProcessRunner.run("commit", "-m", "Initial commit")
       // Neither Example3.kt nor Example4.kt are committed, so they should not show up in the list
-      // of
-      // pre-push formattables.
+      // of pre-push formattables.
       GitProcessRunner.run("add", serverExample3.toString())
 
       TestUtils.withWorkingDir(serverDir.resolve("some")) {
