@@ -22,4 +22,4 @@ dependencyResolutionManagement {
   }
 }
 
-include("format")
+include("kotlin-format")

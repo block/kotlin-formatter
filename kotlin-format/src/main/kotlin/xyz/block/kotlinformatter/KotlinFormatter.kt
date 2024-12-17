@@ -41,12 +41,12 @@ fun main(args: Array<String>) = KotlinFormatter().main(args)
  *
  * ## Usage:
  * ```
- * - format [OPTIONS] <File1.kt> <File2.kt> ...
- * - format --help
+ * - kotlin-format [OPTIONS] <File1.kt> <File2.kt> ...
+ * - kotlin-format --help
  * ```
  */
 class KotlinFormatter(private val inputStream: InputStream = System.`in`) :
-  CliktCommand(help = HELP_MESSAGE, name = "format") {
+  CliktCommand(help = HELP_MESSAGE, name = "kotlin-format") {
   private val files: List<String> by argument(help = HELP_FILES).multiple()
   private val setExitIfChanged: Boolean by
     option("--set-exit-if-changed", help = HELP_SET_EXIT_IF_CHANGED).flag(default = false)
