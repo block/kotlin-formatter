@@ -1,4 +1,4 @@
-package xyz.block.codeformatter
+package xyz.block.kotlinformatter
 
 import java.io.File
 import java.io.InputStream

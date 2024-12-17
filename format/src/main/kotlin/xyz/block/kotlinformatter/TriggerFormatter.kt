@@ -1,4 +1,4 @@
-package xyz.block.codeformatter
+package xyz.block.kotlinformatter
 
 import java.io.*
 import java.util.concurrent.atomic.AtomicLong

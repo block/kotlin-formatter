@@ -1,6 +1,6 @@
-package xyz.block.codeformatter
+package xyz.block.kotlinformatter
 
-import xyz.block.codeformatter.TriggerFormatter.Companion.FormattingResult
+import xyz.block.kotlinformatter.TriggerFormatter.Companion.FormattingResult
 import java.io.File
 import kotlin.io.path.name
 import org.assertj.core.api.Assertions.assertThat

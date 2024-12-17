@@ -4,28 +4,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
   id("application")
-
   alias(libs.plugins.kotlin)
   alias(libs.plugins.shadow)
   alias(libs.plugins.mavenPublish)
-}
-
-mavenPublishing {
-  publishToMavenCentral(SonatypeHost.S01, automaticRelease = true)
-//  signAllPublications()
-
-  pom {
-    name.set("kotlin-editor")
-  }
-}
-
-publishing {
-  publications {
-    create<MavenPublication>("distZip") {
-      artifactId = "kotlin-editor"
-      artifact(tasks.shadowDistZip)
-    }
-  }
 }
 
 dependencies {
@@ -41,6 +22,7 @@ dependencies {
 }
 
 val javaTarget = JavaLanguageVersion.of(libs.versions.java.get())
+val artifactId = "kotlin-formatter"
 
 java {
   toolchain {
@@ -62,10 +44,13 @@ application {
   mainClass.set("xyz.block.codeformatter.CodeFormatterKt")
 }
 
+group = providers.gradleProperty("GROUP").get()
+version = providers.gradleProperty("VERSION").get()
+
 val shadowJar = tasks.named("shadowJar", ShadowJar::class) {
   group = "Build"
   description = "Creates a fat jar"
-  archiveFileName = "kotlin-formatter.jar"
+  archiveFileName = "$artifactId-all.jar"
   isPreserveFileTimestamps = false
   isReproducibleFileOrder = true
 
@@ -82,6 +67,57 @@ tasks.register("buildBinary", Sync::class.java) {
   from(shadowJar)
   into(layout.projectDirectory.dir("build/release"))
 }
+
+// ----------------------
+// Publishing Configuration
+// ----------------------
+mavenPublishing {
+  coordinates(group.toString(), artifactId, version.toString())
+  publishToMavenCentral(SonatypeHost.S01, automaticRelease = true)
+//  signAllPublications()
+
+  pom {
+    name.set("kotlin-formatter")
+    description.set("A command-line tool designed to enforce consistent code formatting for Kotlin.")
+    inceptionYear.set("2024")
+    url.set("https://github.com/block/kotlin-formatter")
+
+    licenses {
+      license {
+        name.set("The Apache Software License, Version 2.0")
+        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+        distribution.set("repo")
+      }
+    }
+
+    developers {
+      developer {
+        id = "block"
+        name = "Block"
+        url = "https://github.com/block"
+      }
+    }
+
+    scm {
+      url = "https://github.com/block/kotlin-formatter"
+      connection = "scm:git:git://github.com/block/kotlin-formatter.git"
+      developerConnection = "scm:git:ssh://github.com/block/kotlin-formatter.git"
+    }
+  }
+}
+
+publishing {
+  publications {
+    create<MavenPublication>("distZip") {
+      artifactId = "$artifactId-dist"
+      artifact(tasks.shadowDistZip)
+    }
+  }
+}
+
+// ----------------------
+// Test Configuration
+// ----------------------
 
 tasks.withType<Test>().configureEach { useJUnitPlatform() }
 

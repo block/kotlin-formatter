@@ -1,4 +1,19 @@
-package xyz.block.codeformatter
+/*
+ * Copyright 2024 (c) 2024 Block, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package xyz.block.kotlinformatter
 
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.PrintHelpMessage
@@ -9,7 +24,7 @@ import com.github.ajalt.clikt.parameters.arguments.multiple
 import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
-import xyz.block.codeformatter.TriggerFormatter.Companion.FormattingResult
+import xyz.block.kotlinformatter.TriggerFormatter.Companion.FormattingResult
 import java.io.InputStream
 import java.time.Duration
 import java.time.Instant
@@ -19,7 +34,7 @@ private const val EXIT_CODE_FAILURE = 1
 private const val EXIT_CODE_BAD_ARGS = 2
 private const val EXIT_CODE_FILE_CHANGED = 3
 
-fun main(args: Array<String>) = CodeFormatter().main(args)
+fun main(args: Array<String>) = KotlinFormatter().main(args)
 
 /**
  * Command-line interface to format Kotlin source code files.
@@ -30,7 +45,7 @@ fun main(args: Array<String>) = CodeFormatter().main(args)
  * - format --help
  * ```
  */
-class CodeFormatter(private val inputStream: InputStream = System.`in`) :
+class KotlinFormatter(private val inputStream: InputStream = System.`in`) :
   CliktCommand(help = HELP_MESSAGE, name = "format") {
   private val files: List<String> by argument(help = HELP_FILES).multiple()
   private val setExitIfChanged: Boolean by

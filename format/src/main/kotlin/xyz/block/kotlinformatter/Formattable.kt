@@ -1,4 +1,4 @@
-package xyz.block.codeformatter
+package xyz.block.kotlinformatter
 
 internal interface Formattable {
   fun name(): String

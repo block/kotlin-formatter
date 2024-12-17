@@ -1,8 +1,7 @@
-package xyz.block.codeformatter
+package xyz.block.kotlinformatter
 
 import java.io.File
 import java.nio.file.Path
-import java.util.*
 import kotlin.io.path.Path
 import kotlin.io.path.extension
 

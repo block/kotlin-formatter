@@ -1,4 +1,4 @@
-package xyz.block.codeformatter
+package xyz.block.kotlinformatter
 
 import com.github.ajalt.clikt.testing.test
 import java.io.ByteArrayInputStream
@@ -9,12 +9,12 @@ import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 
-class CodeFormatterTest {
+class KotlinFormatterTest {
   @Test
   fun `format by kt filenames`(@TempDir tempDir: File) {
     val testDir = TestFixtures.setupTestDirectory(tempDir)
     val result =
-      CodeFormatter()
+      KotlinFormatter()
         .test(
           "${testDir.mainExample1} ${testDir.libExample3} ${testDir.libRandomFile} ${testDir.gradleBuildFile} ${testDir.generatedWireSource} non-existing-file.kt"
         )
@@ -44,7 +44,7 @@ class CodeFormatterTest {
     val testDir = TestFixtures.setupTestDirectory(tempDir)
     val mainSrcDirectory = Paths.get(tempDir.path, "project", "src")
     val libDirectory = Paths.get(tempDir.path, "project", "lib")
-    val result = CodeFormatter().test("${mainSrcDirectory.toAbsolutePath()} ${libDirectory.toAbsolutePath()}")
+    val result = KotlinFormatter().test("${mainSrcDirectory.toAbsolutePath()} ${libDirectory.toAbsolutePath()}")
 
     // generatedWireSource, mainAlreadyFormattedFile and libRandomFile should not be part of
     // formatted files
@@ -71,7 +71,7 @@ class CodeFormatterTest {
   fun `format by kt filenames and directories`(@TempDir tempDir: File) {
     val testDir = TestFixtures.setupTestDirectory(tempDir)
     val libDirectory = Paths.get(tempDir.path, "project", "lib")
-    val result = CodeFormatter().test("${testDir.mainExample1} ${libDirectory.toAbsolutePath()}")
+    val result = KotlinFormatter().test("${testDir.mainExample1} ${libDirectory.toAbsolutePath()}")
 
     // generatedWireSource, mainAlreadyFormattedFile, testExample1Test and libRandomFile should not
     // be part of formatted files
@@ -99,7 +99,7 @@ class CodeFormatterTest {
     val inputContent = TestFixtures.testExample1TestContent
     val inputStream = ByteArrayInputStream(inputContent.toByteArray(Charsets.UTF_8))
 
-    val result = CodeFormatter(inputStream).test("--set-exit-if-changed -")
+    val result = KotlinFormatter(inputStream).test("--set-exit-if-changed -")
 
     assertThat(result.stdout).contains(TestFixtures.formattedTestExample1TestContent)
     assertThat(result.statusCode).isEqualTo(3)
@@ -110,7 +110,7 @@ class CodeFormatterTest {
     val inputContent = TestFixtures.formattedTestExample1TestContent
     val inputStream = ByteArrayInputStream(inputContent.toByteArray(Charsets.UTF_8))
 
-    val result = CodeFormatter(inputStream).test("--set-exit-if-changed -")
+    val result = KotlinFormatter(inputStream).test("--set-exit-if-changed -")
 
     assertThat(result.stdout).isEmpty()
     assertThat(result.statusCode).isEqualTo(0)
@@ -119,7 +119,7 @@ class CodeFormatterTest {
   @Test
   fun `with --dry-run - doesn't format files`(@TempDir tempDir: File) {
     val testDir = TestFixtures.setupTestDirectory(tempDir)
-    val result = CodeFormatter().test("--dry-run ${testDir.mainExample1}")
+    val result = KotlinFormatter().test("--dry-run ${testDir.mainExample1}")
 
     assertThat(result.stdout.trimEnd().lines())
       .containsExactlyInAnyOrderElementsOf(listOf("🛠️ Would format ${testDir.mainExample1}"))
@@ -152,7 +152,7 @@ class CodeFormatterTest {
       testDir.libExample2.writeText(libExample2UpdatedContent)
 
       // 2. Format lib with --pre-commit flag
-      val result = CodeFormatter().test("--pre-commit lib")
+      val result = KotlinFormatter().test("--pre-commit lib")
 
       val libExample2Relative = testDir.libExample2.relativeTo(testDir.rootDir).path
       val libExample3Relative = testDir.libExample3.relativeTo(testDir.rootDir).path
@@ -187,7 +187,7 @@ class CodeFormatterTest {
   @Test
   fun `exits with a non-zero exit code if any files needed to be changed`(@TempDir tempDir: File) {
     val testDir = TestFixtures.setupTestDirectory(tempDir)
-    val result = CodeFormatter().test("--set-exit-if-changed ${testDir.mainExample1}")
+    val result = KotlinFormatter().test("--set-exit-if-changed ${testDir.mainExample1}")
 
     assertThat(result.stdout.trimEnd().lines())
       .containsExactlyInAnyOrderElementsOf(listOf("✅ Formatted ${testDir.mainExample1}"))
@@ -209,7 +209,7 @@ class CodeFormatterTest {
   @Test
   fun `successfully exits if no files to format`(@TempDir tempDir: File) {
     TestFixtures.setupTestDirectory(tempDir)
-    val result = CodeFormatter().test("non-existing-file.kt")
+    val result = KotlinFormatter().test("non-existing-file.kt")
 
     assertThat(result.stdout.trimEnd()).isEqualTo("Nothing to format")
     assertThat(result.statusCode).isEqualTo(0)
@@ -218,9 +218,9 @@ class CodeFormatterTest {
   @Test
   fun `returns help message if no filenames are specified`(@TempDir tempDir: File) {
     TestFixtures.setupTestDirectory(tempDir)
-    val result = CodeFormatter().test("")
+    val result = KotlinFormatter().test("")
 
-    assertThat(result.stdout.trimEnd()).contains(CodeFormatter.HELP_MESSAGE)
+    assertThat(result.stdout.trimEnd()).contains(KotlinFormatter.HELP_MESSAGE)
     assertThat(result.statusCode).isEqualTo(0)
   }
 
@@ -233,7 +233,7 @@ class CodeFormatterTest {
       TestUtils.setupGitUser() // needed for commit to work on CI
       GitProcessRunner.run("commit", "-m", "Initial commit")
 
-      val result = CodeFormatter().test("--pre-push --dry-run --set-exit-if-changed src")
+      val result = KotlinFormatter().test("--pre-push --dry-run --set-exit-if-changed src")
 
       assertThat(result.statusCode).isNotEqualTo(0)
       assertThat(result.stdout.trimEnd().lines())
@@ -308,7 +308,7 @@ class CodeFormatterTest {
       GitProcessRunner.run("add", testDir.edgecaseSpaces.path)
 
       // 2. Format lib with --pre-commit flag
-      val result = CodeFormatter().test("--pre-commit .")
+      val result = KotlinFormatter().test("--pre-commit .")
 
       val edgecaseSpacesRelative = testDir.edgecaseSpaces.relativeTo(testDir.rootDir).path
       val formattedFiles = listOf(edgecaseSpacesRelative)

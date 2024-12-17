@@ -1,4 +1,4 @@
-package xyz.block.codeformatter
+package xyz.block.kotlinformatter
 
 import java.nio.file.Path
 import kotlin.io.path.pathString

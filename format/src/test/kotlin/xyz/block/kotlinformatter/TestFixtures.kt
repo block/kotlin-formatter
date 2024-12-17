@@ -1,7 +1,7 @@
-package xyz.block.codeformatter
+package xyz.block.kotlinformatter
 
-import xyz.block.codeformatter.GitStagingService.getStagedFiles
-import xyz.block.codeformatter.GitStagingService.getStagedFormattableBlobs
+import xyz.block.kotlinformatter.GitStagingService.getStagedFiles
+import xyz.block.kotlinformatter.GitStagingService.getStagedFormattableBlobs
 import java.io.File
 import java.nio.file.Path
 
