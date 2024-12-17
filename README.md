@@ -34,22 +34,3 @@ kotlin-format [OPTIONS] [FILES...]
 |---------------|--------------------------------------------|
 | `<files>`     | Files or directories to format. Use `-` for standard input. |
 
-## Build the CLI
-To build and install the CLI tool, run the following command:
-
-```shell
-./gradlew :kotlin-format:installShadowDist
-```
-This will install the app to `kotlin-format/build/install/kotlin-format-shadow/`.
-
-### Gradle build scans
-
-This project is configured to publish build scans to the public
-[build scan service](https://scans.gradle.com/). Publication is disabled by default but can be
-enabled by creating a `local.properties` file with the following contents:
-
-```properties
-kotlin.editor.build.scans.enable=true
-```
-
-This file should not be checked into version control.

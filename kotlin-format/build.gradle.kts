@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
   id("application")
   id("org.jetbrains.kotlin.jvm")
+  id("com.autonomousapps.dependency-analysis")
   alias(libs.plugins.shadow)
   alias(libs.plugins.mavenPublish)
 }
@@ -15,7 +16,6 @@ dependencies {
 
   testImplementation(libs.junitApi)
   testImplementation(libs.assertj)
-  testImplementation(libs.junitParams)
 
   testRuntimeOnly(libs.junitEngine)
   testRuntimeOnly(libs.junitLauncher)

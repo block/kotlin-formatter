@@ -1,140 +1,16 @@
 # Contribution Guide
 
-## Notice for Project Leads
----
-___***THIS IS A TEMPLATE; SECTIONS FLAGGED LIKE THIS are for project leads to fill out***___
-This is a template and offers suggestions for orienting your community to:
-* Build
-* Install Build Prereqs
-* Contribute
-
-It's likely that you'll customize this to your project's needs, and the areas of focus here are a starting point for you to fill out, remove, expand -- whatever serves project success.
-
-If you note an area where this template itself could be improved - have at it! You may file an issue or PR in https://github.com/block/oss-project-template.
-
----
-
 There are many ways to be an open source contributor, and we're here to help you on your way! You may:
 
-* Propose ideas in our
-  [Discord](https://discord.gg/SOMETHING)  ___***DETERMINE IF APPLICABLE, UPDATE LINK AND REMOVE THIS NOTICE***___
-* Raise an issue or feature request in our [issue tracker](LINK_HERE)  ___***UPDATE LINK AND REMOVE THIS NOTICE***___
-* Raise an issue or feature request in our [discussions](LINK_HERE)  ___***DETERMINE IF APPLICABLE, UPDATE LINK AND REMOVE THIS NOTICE***___
+* Raise an issue or feature request in our [issue tracker](#issues)
 * Help another contributor with one of their questions, or a code review
 * Suggest improvements to our Getting Started documentation by supplying a Pull Request
 * Evangelize our work together in conferences, podcasts, and social media spaces.
 
 This guide is for you.
 
-## Development Prerequisites
 
-___***UPDATE TABLE OF PROJECT DEPS AND INSTALLATION NOTES***___
-
-| Requirement | Tested Version | Installation Instructions                            |
-|-------------|----------------|------------------------------------------------------|
-| Go          | 1.17.6         |[go.dev](https://go.dev/doc/tutorial/compile-install) |
-| Mage        | 1.12.1         |[magefile.org](https://magefile.org/)                 |
-| Java        | 17.0.2         | Below, recommended via [SDKMan](https://sdkman.io)   |
-
-### Go
-
-This project is written in Go, a modern, open source programming language.
-
-You may verify your `go` installation via the terminal:
-
-```
-$> go version
-go version go1.17.6 darwin/amd64
-```
-
-If you do not have go, we recommend installing it by:
-
-#### MacOS
-
-##### Homebrew
-```
-$> brew install go
-```
-
-#### Linux
-
-See the [Go Installation Documentation](https://go.dev/doc/install).
-
-### Mage
-
-The build is run by Mage.
-
-You may verify your `mage` installation via the terminal:
-
-```
-$> mage --version
-Mage Build Tool 1.12.1
-Build Date: 2021-12-15T21:00:02Z
-Commit: 2f1ec40
-built with: go1.17.6
-```
-
-#### MacOS
-
-##### Homebrew
-
-```
-$> brew install mage
-```
-
-#### Linux
-
-Installation instructions are on the [Magefile home page](https://magefile.org/).
-
-### Java
-
-This project is written in Java, a typesafe, compiled programming language.
-
-You may verify your `java` installation via the terminal by running `java -version`.
-
-If you do not have Java, we recommend installing it
-via [SDKMan](https://sdkman.io/install). This is a project which will allow you
-to easily install the Java Development Kit (JDK), runtime (JRE), and related frameworks,
-build tools, and runtimes.
-
-After you've installed SDKMan, you may install Java:
-
-#### SDKMan (cross-platform instructions)
-
-```shell
-$> sdk install java 
- ...
-Do you want java 17.0.2-open to be set as default? (Y/n): Y
-Setting java 17.0.2-open as default.
-```
-
-You may test your installation:
-
-```shell
-$> java -version
-openjdk version "17.0.2" 2022-01-18
-OpenJDK Runtime Environment (build 17.0.2+8-86)
-OpenJDK 64-Bit Server VM (build 17.0.2+8-86, mixed mode, sharing)
-```
-
----
-**NOTE**
-
-You may additionally look for other Java versions to install by running `sdk list java`:
-
-...or other installation candidates like Apache Ant, Apache Maven, etc, by running `sdk list`.
-
-Consult the SDKMan documentation for more info.
-
----
-
-## Build (Mage)
-
-```
-$> mage build
-```
-
-## Build (Java / Gradle)
+## Build
 
 ### macOS / Linux
 ```shell
@@ -146,13 +22,15 @@ $> ./gradlew build
 $> gradlew.bat build
 ```
 
-## Test (Mage)
+## Build the CLI Tool
+To build and install the CLI tool:
 
+```shell
+$> ./gradlew :kotlin-format:installShadowDist
 ```
-$> mage test
-```
+This will install the CLI to `kotlin-format/build/install/kotlin-format-shadow/`
 
-## Test (Java / Gradle)
+## Test
 
 ### macOS / Linux
 ```shell
@@ -173,6 +51,18 @@ You may also combine Gradle build targets in one call, like:
 $> ./gradlew clean build test
 ```
 
+### Gradle build scans
+
+This project is configured to publish build scans to the public
+[build scan service](https://scans.gradle.com/). Publication is disabled by default but can be
+enabled by creating a `local.properties` file with the following contents:
+
+```properties
+kotlin.editor.build.scans.enable=true
+```
+
+This file should not be checked into version control.
+
 ---
 
 ## Communications
@@ -180,19 +70,11 @@ $> ./gradlew clean build test
 ### Issues
 
 Anyone from the community is welcome (and encouraged!) to raise issues via
-[GitHub Issues](LINK_HERE)  ___***FIX LINK AND REMOVE THIS NOTICE***___.
-
-### Discussions
-
-Design discussions and proposals take place in our [Discord](https://discord.gg/SOMETHING). ___***DETERMINE IF APPLICABLE, FIX LINK AND REMOVE THIS NOTICE***___.
-
-We advocate an asynchronous, written debate model - so write up your thoughts and invite the community to join in!
+[GitHub Issues](https://github.com/cashapp/kotlin-editor/issues)
 
 ### Continuous Integration
 
-Build and Test cycles are run on every commit to every branch on [GitHub Actions](LINK_HERE).
-
-___***FIX LINK ABOVE AND REMOVE THIS NOTICE***___
+Build and Test cycles are run on every commit to every branch on [GitHub Actions](https://github.com/block/kotlin-formatter/actions).
 
 ## Contribution
 
