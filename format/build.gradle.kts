@@ -41,7 +41,7 @@ tasks.withType<KotlinCompile> {
 }
 
 application {
-  mainClass.set("xyz.block.codeformatter.CodeFormatterKt")
+  mainClass.set("xyz.block.kotlinformatter.KotlinFormatterKt")
 }
 
 group = providers.gradleProperty("GROUP").get()
@@ -74,7 +74,7 @@ tasks.register("buildBinary", Sync::class.java) {
 mavenPublishing {
   coordinates(group.toString(), artifactId, version.toString())
   publishToMavenCentral(SonatypeHost.S01, automaticRelease = true)
-//  signAllPublications()
+  signAllPublications()
 
   pom {
     name.set("kotlin-formatter")
@@ -92,16 +92,16 @@ mavenPublishing {
 
     developers {
       developer {
-        id = "block"
-        name = "Block"
-        url = "https://github.com/block"
+        id.set("block")
+        name.set("Block")
+        url.set("https://github.com/block")
       }
     }
 
     scm {
-      url = "https://github.com/block/kotlin-formatter"
-      connection = "scm:git:git://github.com/block/kotlin-formatter.git"
-      developerConnection = "scm:git:ssh://github.com/block/kotlin-formatter.git"
+      url.set("https://github.com/block/kotlin-formatter")
+      connection.set("scm:git:git://github.com/block/kotlin-formatter.git")
+      developerConnection.set("scm:git:ssh://github.com/block/kotlin-formatter.git")
     }
   }
 }
