@@ -11,34 +11,22 @@ This guide is for you.
 
 ## Build
 
-### macOS / Linux
 ```shell
-$> ./gradlew build
-```
-
-### Windows
-```shell
-$> gradlew.bat build
+$> gradle build
 ```
 
 ## Build the CLI Tool
 To build and install the CLI tool:
 
 ```shell
-$> ./gradlew :kotlin-format:installShadowDist
+$> gradle :kotlin-format:installShadowDist
 ```
 This will install the CLI to `kotlin-format/build/install/kotlin-format-shadow/`
 
 ## Test
 
-### macOS / Linux
 ```shell
-$> ./gradlew test
-```
-
-### Windows
-```shell
-$> gradlew.bat test
+$> gradle test
 ```
 
 ### Gradle build scans
@@ -48,7 +36,7 @@ This project is configured to publish build scans to the public
 enabled by creating a `local.properties` file with the following contents:
 
 ```properties
-kotlin.editor.build.scans.enable=true
+kotlin.formatter.build.scans.enable=true
 ```
 
 This file should not be checked into version control.
