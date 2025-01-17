@@ -9,24 +9,59 @@ There are many ways to be an open source contributor, and we're here to help you
 
 This guide is for you.
 
+## Build Prerequisites
+
+### macOS / Linux
+
+**1. Hermit Environment Setup**: This project uses [Hermit](https://cashapp.github.io/hermit) to
+manage the environment like Gradle and Java versions.
+See [this page](https://cashapp.github.io/hermit/usage/get-started/) to set up Hermit on your machine -- make sure to
+download the open source build and activate it for the project.
+
+**2. Activate Hermit**: Once you've installed Hermit and before running builds on this repo, run from the root of this repo:
+```shell
+source ./bin/activate-hermit
+```
+This will set your environment up correctly in your terminal emulator.
+
 ## Build
+
+### macOS / Linux
 
 ```shell
 $> gradle build
 ```
 
+### Windows
+```shell
+$> gradlew.bat build
+```
+
 ## Build the CLI Tool
 To build and install the CLI tool:
 
+### macOS / Linux
 ```shell
 $> gradle :kotlin-format:installShadowDist
 ```
+
+### Windows
+```shell
+$> ./gradlew :kotlin-format:installShadowDist
+```
+
 This will install the CLI to `kotlin-format/build/install/kotlin-format-shadow/`
 
 ## Test
 
+### macOS / Linux
 ```shell
 $> gradle test
+```
+
+### Windows
+```shell
+$> gradlew.bat test
 ```
 
 ### Gradle build scans
