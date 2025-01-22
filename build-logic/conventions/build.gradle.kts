@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
   id("java-gradle-plugin")
@@ -24,6 +24,7 @@ dependencies {
 }
 
 val javaTarget = JavaLanguageVersion.of(libs.versions.java.get())
+val kotlinTarget = JvmTarget.fromTarget(libs.versions.java.get())
 
 java {
   toolchain {
@@ -31,14 +32,14 @@ java {
   }
 }
 
-tasks.withType<JavaCompile> {
-  options.release.set(javaTarget.asInt())
+kotlin {
+  compilerOptions {
+    jvmTarget = kotlinTarget
+  }
 }
 
-tasks.withType<KotlinCompile> {
-  kotlinOptions {
-    jvmTarget = javaTarget.toString()
-  }
+tasks.withType<JavaCompile> {
+  options.release.set(javaTarget.asInt())
 }
 
 tasks.named<Test>("test") {

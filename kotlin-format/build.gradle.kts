@@ -1,6 +1,6 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import com.vanniktech.maven.publish.SonatypeHost
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
   id("application")
@@ -24,6 +24,7 @@ dependencies {
 }
 
 val javaTarget = JavaLanguageVersion.of(libs.versions.java.get())
+val kotlinTarget = JvmTarget.fromTarget(libs.versions.java.get())
 val artifactName = "kotlin-formatter"
 
 java {
@@ -32,14 +33,14 @@ java {
   }
 }
 
-tasks.withType<JavaCompile> {
-  options.release.set(javaTarget.asInt())
+kotlin {
+  compilerOptions {
+    jvmTarget = kotlinTarget
+  }
 }
 
-tasks.withType<KotlinCompile> {
-  kotlinOptions {
-    jvmTarget = javaTarget.toString()
-  }
+tasks.withType<JavaCompile> {
+  options.release.set(javaTarget.asInt())
 }
 
 application {
