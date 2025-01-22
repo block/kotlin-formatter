@@ -8,12 +8,13 @@ junitPlatform = "1.11.4"
 kotlin = "2.1.0"
 ktfmt = "0.53"
 mavenPublish = "0.30.0"
-mordant = "2.7.2"
+mordant = "3.0.1"
 shadow = "8.3.5"
 
 [libraries]
 assertj = { module = "org.assertj:assertj-core", version = "3.27.3" }
 clikt = { module = "com.github.ajalt.clikt:clikt", version.ref = "clikt" }
+cliktCore = { module = "com.github.ajalt.clikt:clikt-core", version.ref = "clikt" }
 dependencyAnalysisPlugin = { module = "com.autonomousapps:dependency-analysis-gradle-plugin", version.ref = "dependencyAnalysis" }
 develocityPlugin = { module = "com.gradle:develocity-gradle-plugin", version.ref = "develocity" }
 junitApi = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiter" }
@@ -21,7 +22,7 @@ junitEngine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref =
 junitLauncher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junitPlatform" }
 junitParams = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junitJupiter" }
 ktfmt = { module = "com.facebook:ktfmt", version.ref = "ktfmt" }
-mordant = { module = "com.github.ajalt.mordant:mordant", version.ref = "mordant" }
+mordantCore = { module = "com.github.ajalt.mordant:mordant-core", version.ref = "mordant" }
 
 [plugins]
 dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" }

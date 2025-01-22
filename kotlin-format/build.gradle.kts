@@ -12,11 +12,12 @@ plugins {
 
 dependencies {
   implementation(libs.clikt)
+  implementation(libs.cliktCore)
   implementation(libs.ktfmt)
 
   testImplementation(libs.junitApi)
   testImplementation(libs.assertj)
-  testImplementation(libs.mordant)
+  testImplementation(libs.mordantCore)
 
   testRuntimeOnly(libs.junitEngine)
   testRuntimeOnly(libs.junitLauncher)
