@@ -16,9 +16,11 @@
 package xyz.block.kotlinformatter
 
 import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.core.Context
 import com.github.ajalt.clikt.core.PrintHelpMessage
 import com.github.ajalt.clikt.core.PrintMessage
 import com.github.ajalt.clikt.core.ProgramResult
+import com.github.ajalt.clikt.core.main
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.multiple
 import com.github.ajalt.clikt.parameters.options.default
@@ -46,7 +48,7 @@ fun main(args: Array<String>) = KotlinFormatter().main(args)
  * ```
  */
 class KotlinFormatter(private val inputStream: InputStream = System.`in`) :
-  CliktCommand(help = HELP_MESSAGE, name = "kotlin-format") {
+  CliktCommand(name = "kotlin-format") {
   private val files: List<String> by argument(help = HELP_FILES).multiple()
   private val setExitIfChanged: Boolean by
     option("--set-exit-if-changed", help = HELP_SET_EXIT_IF_CHANGED).flag(default = false)
@@ -56,6 +58,8 @@ class KotlinFormatter(private val inputStream: InputStream = System.`in`) :
   private val pushCommit: String by option("--push-commit", help = HELP_PUSH_COMMIT).default("HEAD")
   private val stats: Boolean by
     option("--print-stats", help = HELP_PRINT_STATS, envvar = "KOTLIN_FORMATTER_STATS").flag(default = false)
+
+  override fun help(context: Context) = HELP_MESSAGE
 
   override fun run() {
     // 1. Validate inputs
