@@ -20,9 +20,7 @@ kotlin {
 }
 
 dependencies {
-  implementation(libs.dependencyAnalysisPlugin)
   implementation(libs.develocityPlugin)
-  implementation(libs.kotlinGradlePlugin)
 }
 
 val javaTarget = JavaLanguageVersion.of(libs.versions.java.get())
