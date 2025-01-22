@@ -38,8 +38,11 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
+      - name: Execute buildHealth for build-logic
+        run: './gradlew -p build-logic buildHealth -s'
+
       - name: Execute check
         run: './gradlew check -s'
 
-      - name: Execute buildHealth
+      - name: Execute buildHealth for main project
         run: './gradlew buildHealth -s'
