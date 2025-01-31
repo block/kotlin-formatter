@@ -1,0 +1,11 @@
+<idea-plugin>
+  <id>xyz.block.kotlin-formatter</id>
+  <name>kotlin-formatter</name>
+  <description>TODO</description>
+  <vendor url="https://block.xyz/">Block</vendor>
+  <depends>com.intellij.modules.platform</depends>
+  <extensions defaultExtensionNs="com.intellij">
+    <formattingService implementation="xyz.block.kotlinformatter.idea.KotlinReformatService"/>
+    <postStartupActivity implementation="xyz.block.kotlinformatter.idea.FormatOnSavePostStartupActivity"/>
+  </extensions>
+</idea-plugin>
