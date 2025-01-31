@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>xyz.block.kotlin-formatter</id>
   <name>kotlin-formatter</name>
-  <description>TODO</description>
+  <description>Plugin for formatting code using ktfmt</description>
   <vendor url="https://block.xyz/">Block</vendor>
   <depends>com.intellij.modules.platform</depends>
   <extensions defaultExtensionNs="com.intellij">

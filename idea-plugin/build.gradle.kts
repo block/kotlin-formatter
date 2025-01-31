@@ -13,7 +13,6 @@ dependencies {
   }
 }
 
-// TODO
 val pluginName = "kotlin-formatter"
 val sinceIdeVersion = "233.15619.7" // corresponds to 2023.3.x versions
 val sinceBuildMajorVersion = sinceIdeVersion.substringBefore('.')
@@ -28,10 +27,10 @@ intellijPlatform {
     id = "xyz.block.kotlin-formatter"
     name = pluginName
     version = project.version.toString()
-    description = "TODO"
+    description = "Plugin for formatting code using ktfmt"
     vendor {
-      name = "TODO"
-      url = "TODO"
+      name = "Block"
+      url = "https://block.xyz/"
     }
     ideaVersion {
       sinceBuild = sinceBuildMajorVersion
@@ -54,11 +53,6 @@ intellijPlatform {
 }
 
 tasks {
-  publishPlugin {
-    enabled =
-      false // We handle all publishing internally and don't use the hosting mechanism offered by JetBrains.
-  }
-
   buildPlugin {
     archiveBaseName = pluginName
   }
