@@ -60,4 +60,12 @@ tasks {
   check {
     dependsOn("verifyPlugin")
   }
+
+  patchPluginXml {
+    version = System.getenv("IJ_PLUGIN_VERSION") // IJ_PLUGIN_VERSION env var available in CI
+  }
+
+  publishPlugin {
+    token.set(System.getenv("JETBRAINS_TOKEN")) // JETBRAINS_TOKEN env var available in CI
+  }
 }
