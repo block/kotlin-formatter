@@ -14,7 +14,7 @@ dependencies {
 }
 
 val pluginName = "kotlin-formatter"
-val sinceIdeVersion = "233.15619.7" // corresponds to 2023.3.x versions
+val sinceIdeVersion = "241.19416.15" // corresponds to 2024.1.x versions
 val sinceBuildMajorVersion = sinceIdeVersion.substringBefore('.')
 val untilIdeVersion = properties["IIC.release.version"] as String
 val untilBuildMajorVersion = untilIdeVersion.substringBefore('.')
