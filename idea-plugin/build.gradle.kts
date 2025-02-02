@@ -18,15 +18,17 @@ val sinceIdeVersion = "241.19416.15" // corresponds to 2024.1.x versions
 val sinceBuildMajorVersion = sinceIdeVersion.substringBefore('.')
 val untilIdeVersion = properties["IIC.release.version"] as String
 val untilBuildMajorVersion = untilIdeVersion.substringBefore('.')
+val pluginVersion = project.version.toString()
 
 intellijPlatform {
+  version = pluginVersion
   buildSearchableOptions = false
   projectName = project.name
   instrumentCode = false // We don't need to scan codebase for jetbrains annotations
   pluginConfiguration {
     id = "xyz.block.kotlin-formatter"
     name = pluginName
-    version = project.version.toString()
+    version = pluginVersion
     description = "Plugin for formatting code using ktfmt"
     vendor {
       name = "Block"

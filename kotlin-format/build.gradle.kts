@@ -47,8 +47,8 @@ application {
   mainClass.set("xyz.block.kotlinformatter.KotlinFormatterKt")
 }
 
-group = providers.gradleProperty("GROUP").get()
-version = providers.gradleProperty("VERSION").get()
+group = providers.gradleProperty("group").get()
+version = providers.gradleProperty("version").get()
 
 val shadowJar = tasks.named("shadowJar", ShadowJar::class) {
   group = "Build"
