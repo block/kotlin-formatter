@@ -9,7 +9,7 @@ kotlin = "2.1.10"
 ktfmt = "0.54"
 mavenPublish = "0.30.0"
 mordant = "3.0.1"
-shadow = "8.3.5"
+shadow = "8.3.6"
 
 [libraries]
 assertj = { module = "org.assertj:assertj-core", version = "3.27.3" }
