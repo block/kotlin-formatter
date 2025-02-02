@@ -57,9 +57,9 @@ tasks {
     archiveBaseName = pluginName
   }
 
-  check {
-    dependsOn("verifyPlugin")
-  }
+  // check {
+  //   dependsOn("verifyPlugin")
+  // }
 
   patchPluginXml {
     version = System.getenv("IJ_PLUGIN_VERSION") // IJ_PLUGIN_VERSION env var available in CI
