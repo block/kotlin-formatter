@@ -40,7 +40,7 @@ intellijPlatform {
     id = "xyz.block.kotlin-formatter"
     name = pluginName
     version = pluginVersion
-    description = "Plugin for formatting code using ktfmt"
+    description = "A lightweight plugin for formatting Kotlin code using ktfmt, with the ability to format on save"
     vendor {
       name = "Block"
       url = "https://block.xyz/"

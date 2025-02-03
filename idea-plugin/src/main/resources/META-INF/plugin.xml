@@ -2,7 +2,7 @@
   <id>xyz.block.kotlin-formatter</id>
   <version>PLUGIN_VERSION</version>
   <name>kotlin-formatter</name>
-  <description>Plugin for formatting code using ktfmt</description>
+  <description>A lightweight plugin for formatting Kotlin code using ktfmt, with the ability to format on save</description>
   <vendor url="https://block.xyz/">Block</vendor>
   <depends>com.intellij.modules.platform</depends>
   <extensions defaultExtensionNs="com.intellij">
