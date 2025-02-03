@@ -13,6 +13,17 @@ dependencies {
   }
 }
 
+java {
+  sourceCompatibility = JavaVersion.VERSION_17
+  targetCompatibility = JavaVersion.VERSION_17
+}
+
+kotlin {
+  compilerOptions {
+    jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+  }
+}
+
 val pluginName = "kotlin-formatter"
 val sinceIdeVersion = "241.19416.15" // corresponds to 2024.1.x versions
 val sinceBuildMajorVersion = sinceIdeVersion.substringBefore('.')
