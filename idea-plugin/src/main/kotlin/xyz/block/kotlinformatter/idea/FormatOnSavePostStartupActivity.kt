@@ -14,7 +14,7 @@ class FormatOnSavePostStartupActivity : ProjectActivity {
     // if (!project.isCashServer()) return TODO: Replace this
 
     //service<FormatScriptStateService>().locateScriptFile()
-    service<FormatScriptStateService>()
+    project.service<FormatScriptStateService>()
 
     try {
       logger.debug("Registering KotlinFormatOnSaveListener for file document-related events for ${project.name}")
