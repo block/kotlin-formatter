@@ -8,8 +8,8 @@
   <extensions defaultExtensionNs="com.intellij">
     <formattingService implementation="xyz.block.kotlinformatter.idea.KotlinReformatService"/>
     <postStartupActivity implementation="xyz.block.kotlinformatter.idea.FormatOnSavePostStartupActivity"/>
-    <projectService
-        serviceInterface="xyz.block.kotlinformatter.idea.FormatScriptStateService"
-        serviceImplementation="xyz.block.kotlinformatter.idea.DefaultFormatScriptStateService" />
+<!--    <projectService-->
+<!--        serviceInterface="xyz.block.kotlinformatter.idea.FormatScriptStateService"-->
+<!--        serviceImplementation="xyz.block.kotlinformatter.idea.DefaultFormatScriptStateService" />-->
   </extensions>
 </idea-plugin>

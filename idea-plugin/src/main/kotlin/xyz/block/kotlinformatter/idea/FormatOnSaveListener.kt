@@ -20,6 +20,7 @@ import java.util.concurrent.ConcurrentHashMap
 class FormatOnSaveListener(private val project: Project, private val formatter: AsyncDocumentFormattingService) :
   FileDocumentManagerListener {
 
+
   /**
    * A set of documents that have already been processed by the listener.
    *

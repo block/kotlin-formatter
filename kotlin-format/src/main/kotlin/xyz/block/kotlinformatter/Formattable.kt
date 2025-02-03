@@ -5,5 +5,7 @@ internal interface Formattable {
 
   fun read(): String
 
+
+
   fun write(content: String)
 }

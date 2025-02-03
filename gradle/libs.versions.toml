@@ -5,7 +5,7 @@ develocity = "3.19.1"
 java = "17"
 junitJupiter = "5.11.4"
 junitPlatform = "1.11.4"
-kotlin = "2.1.10"
+kotlin = "2.0.21"
 ktfmt = "0.54"
 mavenPublish = "0.30.0"
 mordant = "3.0.1"
@@ -15,12 +15,10 @@ shadow = "8.3.5"
 assertj = { module = "org.assertj:assertj-core", version = "3.27.3" }
 clikt = { module = "com.github.ajalt.clikt:clikt", version.ref = "clikt" }
 cliktCore = { module = "com.github.ajalt.clikt:clikt-core", version.ref = "clikt" }
-dependencyAnalysisPlugin = { module = "com.autonomousapps:dependency-analysis-gradle-plugin", version.ref = "dependencyAnalysis" }
 develocityPlugin = { module = "com.gradle:develocity-gradle-plugin", version.ref = "develocity" }
 junitApi = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiter" }
 junitEngine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitJupiter" }
 junitLauncher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junitPlatform" }
-junitParams = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junitJupiter" }
 kotlinStdLib = { module = "org.jetbrains.kotlin:kotlin-stdlib" }
 ktfmt = { module = "com.facebook:ktfmt", version.ref = "ktfmt" }
 mordantCore = { module = "com.github.ajalt.mordant:mordant-core", version.ref = "mordant" }

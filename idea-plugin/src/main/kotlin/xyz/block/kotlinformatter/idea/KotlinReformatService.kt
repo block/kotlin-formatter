@@ -70,10 +70,13 @@ class KotlinReformatService : AsyncDocumentFormattingService() {
   private fun formatFile(file: PsiFile): String? {
     //val scriptPath = service<FormatScriptStateService>().state.path ?: return null
     val scriptPath = file.project.service<FormatScriptStateService>().path
-    println("scriptPath: $scriptPath")
+    //println("scriptPath: $scriptPath")
+
+    //val scriptPath = FormatScriptStateService.path
 
     val processBuilder =
       ProcessBuilder(scriptPath, "--set-exit-if-changed", "-").directory(file.project.basePath?.let { File(it) })
+      //ProcessBuilder("bin/kotlin-format", "--set-exit-if-changed", "-").directory(file.project.basePath?.let { File(it) })
 
     val process = processBuilder.start()
 

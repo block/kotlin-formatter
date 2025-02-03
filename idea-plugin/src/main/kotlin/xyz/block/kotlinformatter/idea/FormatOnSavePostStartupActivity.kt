@@ -13,8 +13,11 @@ class FormatOnSavePostStartupActivity : ProjectActivity {
   override suspend fun execute(project: Project) {
     // if (!project.isCashServer()) return TODO: Replace this
 
-    //service<FormatScriptStateService>().locateScriptFile()
-    project.service<FormatScriptStateService>()
+    service<FormatScriptStateService>().locateScriptFile(project)
+    //project.service<FormatScriptStateService>().path
+    //service<FormatScriptStateService>().path
+    //FormatScriptStateService.locateScriptFile()
+    logger.info("path is ${service<FormatScriptStateService>()}")
 
     try {
       logger.debug("Registering KotlinFormatOnSaveListener for file document-related events for ${project.name}")

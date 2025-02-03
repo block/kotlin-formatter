@@ -21,6 +21,7 @@ java {
 kotlin {
   compilerOptions {
     jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+    freeCompilerArgs = listOf("-Xjvm-default=all-compatibility")
   }
 }
 
