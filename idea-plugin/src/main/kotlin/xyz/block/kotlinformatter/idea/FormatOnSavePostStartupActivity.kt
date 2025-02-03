@@ -1,13 +1,20 @@
 package xyz.block.kotlinformatter.idea
 
+import com.intellij.openapi.components.service
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.fileEditor.FileDocumentManagerListener
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.startup.ProjectActivity
 
 class FormatOnSavePostStartupActivity : ProjectActivity {
+
+  //lateinit var kotlinFormatterBinaryPath: Path
+
   override suspend fun execute(project: Project) {
-//    if (!project.isCashServer()) return TODO: Replace this
+    // if (!project.isCashServer()) return TODO: Replace this
+
+    //service<FormatScriptStateService>().locateScriptFile()
+    service<FormatScriptStateService>()
 
     try {
       logger.debug("Registering KotlinFormatOnSaveListener for file document-related events for ${project.name}")

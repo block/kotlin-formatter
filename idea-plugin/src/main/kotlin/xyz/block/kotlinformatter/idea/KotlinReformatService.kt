@@ -4,6 +4,7 @@ import com.intellij.formatting.service.AsyncDocumentFormattingService
 import com.intellij.formatting.service.AsyncFormattingRequest
 import com.intellij.formatting.service.FormattingService
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.components.service
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.guessProjectDir
@@ -67,8 +68,12 @@ class KotlinReformatService : AsyncDocumentFormattingService() {
 
   /** Returns formatted content or null if the file is already formatted. */
   private fun formatFile(file: PsiFile): String? {
+    //val scriptPath = service<FormatScriptStateService>().state.path ?: return null
+    val scriptPath = file.project.service<FormatScriptStateService>().path
+    println("scriptPath: $scriptPath")
+
     val processBuilder =
-      ProcessBuilder("bin/kotlin-format", "--set-exit-if-changed", "-").directory(file.project.basePath?.let { File(it) })
+      ProcessBuilder(scriptPath, "--set-exit-if-changed", "-").directory(file.project.basePath?.let { File(it) })
 
     val process = processBuilder.start()
 
