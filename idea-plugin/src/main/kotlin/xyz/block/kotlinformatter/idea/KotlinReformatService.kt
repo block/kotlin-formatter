@@ -11,12 +11,9 @@ import com.intellij.openapi.util.io.FileUtilRt
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.findFile
 import com.intellij.psi.PsiFile
-import xyz.block.kotlinformatter.FormattingConfigs
-import xyz.block.kotlinformatter.KotlinFormatter
-import xyz.block.kotlinformatter.TriggerFormatter.Companion.FormattingResult.Formatted
-import xyz.block.kotlinformatter.TriggerFormatter.Companion.FormattingResult.FormattingError
-import xyz.block.kotlinformatter.TriggerFormatter.Companion.FormattingResult.WouldFormat
+import java.io.File
 import java.io.InputStreamReader
+import kotlin.text.Charsets.UTF_8
 
 /**
  * A service that overrides the default IntelliJ formatting behavior for Kotlin files.
@@ -44,8 +41,7 @@ class KotlinReformatService : AsyncDocumentFormattingService() {
       override fun run() {
         ApplicationManager.getApplication().executeOnPooledThread {
           try {
-            val formattedCode =
-              formatFile(request.context.psiElement.containingFile) ?: request.documentText
+            val formattedCode = formatFile(request.context.psiElement.containingFile) ?: request.documentText
             request.onTextReady(formattedCode)
           } catch (e: Exception) {
             // If an error occurs, notify IntelliJ
@@ -70,17 +66,26 @@ class KotlinReformatService : AsyncDocumentFormattingService() {
 
   /** Returns formatted content or null if the file is already formatted. */
   private fun formatFile(file: PsiFile): String? {
-    var formattedContent = ""
-    val config = FormattingConfigs.forStdStreams(file.virtualFile.inputStream) {
-      formattedContent = it
+    val processBuilder =
+      ProcessBuilder("bin/kotlin-format", "--set-exit-if-changed", "-").directory(file.project.basePath?.let { File(it) })
+
+    val process = processBuilder.start()
+
+    // Stream file content to the process's input
+    file.virtualFile.inputStream.use { inputStream ->
+      process.outputStream.use { outputStream -> inputStream.copyTo(outputStream) }
     }
 
-    when (val formattingResult = KotlinFormatter.formatForConfig(config).results.first()) {
-      is WouldFormat,
-      is Formatted -> return formattedContent
+    val formattedContent = process.inputStream.bufferedReader(UTF_8).use { it.readText() }
 
-      is FormattingError -> LOG.error("Formatting failed: ${formattingResult.message}")
-      else -> LOG.info("Nothing to format")
+    // Wait for the process to complete
+    val exitCode = process.waitFor()
+
+    LOG.info("Process exited with code: $exitCode")
+    when (exitCode) {
+      3 -> return formattedContent
+      0 -> LOG.info("Nothing to format")
+      else -> LOG.error("Formatting failed with exit code $exitCode")
     }
 
     return null
@@ -96,8 +101,7 @@ class KotlinReformatService : AsyncDocumentFormattingService() {
     // Extract the module name from the file path
     val module = filePath.substring(basePath.length + 1).split("/").firstOrNull() ?: return false
 
-    val formattingIgnoreModules =
-      file.project.getFileContent(FORMATTING_IGNORE_FILE)?.lines()?.toSet().orEmpty()
+    val formattingIgnoreModules = file.project.getFileContent(FORMATTING_IGNORE_FILE)?.lines()?.toSet().orEmpty()
 
     if (formattingIgnoreModules.contains(module)) {
       LOG.info("File in formatting ignore list: $module")

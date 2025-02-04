@@ -27,11 +27,9 @@ import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
 import xyz.block.kotlinformatter.TriggerFormatter.Companion.FormattingResult
-import xyz.block.kotlinformatter.TriggerFormatter.Companion.FormattingResults
 import java.io.InputStream
 import java.time.Duration
 import java.time.Instant
-import java.util.SortedSet
 import java.util.stream.Stream
 
 private const val EXIT_CODE_FAILURE = 1
@@ -91,6 +89,19 @@ class KotlinFormatter(private val inputStream: InputStream = System.`in`) :
         FormattingConfigs.forWorkingDir(files, dryRun)
       }
 
+    val timeConfigged = Instant.now()
+
+    // 3. Trigger the formatter
+    val formatter = TriggerFormatter(Ktfmt())
+
+    val formattingResults =
+      formattingConfigs.formattables
+        .parallelStream()
+        .map { formattable -> formatter.format(formattable, formattingConfigs) }
+        .toSortedSet()
+
+    val timeFormatted = Instant.now()
+
     // Making a single string and outputting it once is much faster than calling echo for each
     // result individually
     val output = StringBuilder()
@@ -99,17 +110,10 @@ class KotlinFormatter(private val inputStream: InputStream = System.`in`) :
       output.appendLine("Nothing to format")
     }
 
-    val timeConfigged = Instant.now()
-
-    // 3. Trigger the formatter
-    val formattingResults = formatForConfig(formattingConfigs)
-
-    val timeFormatted = Instant.now()
-
     var hasFailure = false
     var hasFileChanged = false
 
-    formattingResults.results.forEach { formattingResult ->
+    formattingResults.forEach { formattingResult ->
       when (formattingResult) {
         is FormattingResult.AlreadyFormatted -> Unit
         is FormattingResult.WouldFormat -> {
@@ -153,7 +157,7 @@ class KotlinFormatter(private val inputStream: InputStream = System.`in`) :
           "       File count: ${formattingConfigs.formattables.filterIsInstance<FormattableFile>().size}",
           err = true,
         )
-        echo("  Chars processed: ${formattingResults.charsProcessed}", err = true)
+        echo("  Chars processed: ${formatter.charsProcessed()}", err = true)
       }
     }
 
@@ -165,6 +169,9 @@ class KotlinFormatter(private val inputStream: InputStream = System.`in`) :
       throw ProgramResult(EXIT_CODE_FILE_CHANGED)
     }
   }
+
+  // Stream doesn't have a toSortedSet() method, so we need to convert it to a list first.
+  private fun <E : Comparable<E>> Stream<E>.toSortedSet() = toList().toSortedSet()
 
   companion object {
     const val HELP_MESSAGE = "Command-line interface to format Kotlin source code files."
@@ -178,8 +185,5 @@ class KotlinFormatter(private val inputStream: InputStream = System.`in`) :
       "Check committed files as part of the pre-push process. Mutually exclusive with --pre-commit."
     const val HELP_PUSH_COMMIT = "The SHA of the commit to use for pre-push. Defaults to 'HEAD'."
     const val HELP_PRINT_STATS = "Emit performance-related statistics to help diagnose performance issues."
-
-    fun formatForConfig(formattingConfigs: FormattingConfigs): FormattingResults =
-      TriggerFormatter(Ktfmt()).format(formattingConfigs)
   }
 }

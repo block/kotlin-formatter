@@ -6,7 +6,6 @@ plugins {
 }
 
 dependencies {
-  implementation(project(":kotlin-format"))
   implementation(libs.kotlinStdLib)
   intellijPlatform {
     intellijIdeaUltimate("2024.3.2")

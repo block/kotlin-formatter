@@ -3,7 +3,7 @@ package xyz.block.kotlinformatter
 import com.facebook.ktfmt.format.Formatter as KtfmtFormatter
 import com.facebook.ktfmt.format.FormattingOptions
 
-interface Formatter {
+internal interface Formatter {
   fun format(code: String): String
 }
 

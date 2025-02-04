@@ -1,6 +1,6 @@
 package xyz.block.kotlinformatter
 
-interface Formattable {
+internal interface Formattable {
   fun name(): String
 
   fun read(): String
