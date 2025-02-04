@@ -1,0 +1,12 @@
+<idea-plugin>
+  <id>xyz.block.kotlin-formatter</id>
+  <version>PLUGIN_VERSION</version>
+  <name>kotlin-formatter</name>
+  <description>A lightweight plugin for formatting Kotlin code using ktfmt, with the ability to format on save</description>
+  <vendor url="https://block.xyz/">Block</vendor>
+  <depends>com.intellij.modules.platform</depends>
+  <extensions defaultExtensionNs="com.intellij">
+    <formattingService implementation="xyz.block.kotlinformatter.idea.KotlinReformatService"/>
+    <postStartupActivity implementation="xyz.block.kotlinformatter.idea.FormatOnSavePostStartupActivity"/>
+  </extensions>
+</idea-plugin>

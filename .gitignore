@@ -7,3 +7,6 @@ build
 
 # Ignore IDE files
 .idea/
+.intellijPlatform/
+
+.kotlin/

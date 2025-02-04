@@ -41,6 +41,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Free disk space to avoid running into "No space left on device" errors
+      # when downloading multiple versions of IntelliJ for plugin verification
+      - name: Maximize Build Space
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          tool-cache: false
+          large-packages: false
+
       - name: Checkout the repo
         uses: actions/checkout@v4
 
@@ -92,3 +100,13 @@ jobs:
             kotlin-format/build/distributions/kotlin-formatter-dist-${{ needs.release_version.outputs.version }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish Idea Plugin
+        run: |
+          export IJ_PLUGIN_VERSION="${{ needs.release_version.outputs.version }}"
+          echo "IJ_PLUGIN_VERSION=$IJ_PLUGIN_VERSION" >> $GITHUB_ENV
+
+          ./gradlew idea-plugin:patchPluginXml
+          ./gradlew idea-plugin:publishPlugin
+        env:
+          JETBRAINS_TOKEN: ${{ secrets.JETBRAINS_PLUGIN_TOKEN }}
