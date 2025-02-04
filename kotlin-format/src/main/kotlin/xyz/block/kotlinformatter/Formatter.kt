@@ -7,7 +7,7 @@ internal interface Formatter {
   fun format(code: String): String
 }
 
-internal class Ktfmt : Formatter {
+class Ktfmt : Formatter {
   override fun format(code: String): String {
     return KtfmtFormatter.format(formattingStyle, code)
   }

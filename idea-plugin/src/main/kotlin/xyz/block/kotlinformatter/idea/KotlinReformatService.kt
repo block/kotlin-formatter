@@ -11,15 +11,13 @@ import com.intellij.openapi.util.io.FileUtilRt
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.findFile
 import com.intellij.psi.PsiFile
-import java.io.File
+import xyz.block.kotlinformatter.Ktfmt
 import java.io.InputStreamReader
-import kotlin.text.Charsets.UTF_8
 
 /**
  * A service that overrides the default IntelliJ formatting behavior for Kotlin files.
  *
- * If a given Kotlin file does not belong to a Cash Server project or is not part of an enabled formatting module, the
- * default IntelliJ formatting behavior will be applied.
+ * Unless the given file is part of [FORMATTING_IGNORE_FILE]
  */
 class KotlinReformatService : AsyncDocumentFormattingService() {
   override fun getFeatures(): MutableSet<FormattingService.Feature> {
@@ -41,7 +39,7 @@ class KotlinReformatService : AsyncDocumentFormattingService() {
       override fun run() {
         ApplicationManager.getApplication().executeOnPooledThread {
           try {
-            val formattedCode = formatFile(request.context.psiElement.containingFile) ?: request.documentText
+            val formattedCode = Ktfmt().format(request.documentText)
             request.onTextReady(formattedCode)
           } catch (e: Exception) {
             // If an error occurs, notify IntelliJ
@@ -64,36 +62,34 @@ class KotlinReformatService : AsyncDocumentFormattingService() {
     return "Reformat Kotlin Files"
   }
 
-  /** Returns formatted content or null if the file is already formatted. */
-  private fun formatFile(file: PsiFile): String? {
-    val processBuilder =
-      ProcessBuilder("bin/kotlin-format", "--set-exit-if-changed", "-").directory(file.project.basePath?.let { File(it) })
-
-    val process = processBuilder.start()
-
-    // Stream file content to the process's input
-    file.virtualFile.inputStream.use { inputStream ->
-      process.outputStream.use { outputStream -> inputStream.copyTo(outputStream) }
-    }
-
-    val formattedContent = process.inputStream.bufferedReader(UTF_8).use { it.readText() }
-
-    // Wait for the process to complete
-    val exitCode = process.waitFor()
-
-    LOG.info("Process exited with code: $exitCode")
-    when (exitCode) {
-      3 -> return formattedContent
-      0 -> LOG.info("Nothing to format")
-      else -> LOG.error("Formatting failed with exit code $exitCode")
-    }
-
-    return null
-  }
-
+  /**
+   * Determines whether formatting should be ignored for the given module based on [FORMATTING_IGNORE_FILE].
+   *
+   * The [FORMATTING_IGNORE_FILE] contains a list of module names where formatting should be disabled.
+   *
+   * #### Example Project Structure:
+   * ```
+   * project-root
+   * ├── module1
+   * │   └── src
+   * ├── module2
+   * │   └── src
+   * ├── module3
+   * │   └── src
+   * ```
+   *
+   * #### Example [FORMATTING_IGNORE_FILE] Content:
+   * ```
+   * module2
+   * module3
+   * ```
+   *
+   * In this example, any file located within `module2` or `module3` will be ignored by the formatter.
+   *
+   */
   private fun isFormattingIgnored(file: PsiFile): Boolean {
     val filePath = file.viewProvider.virtualFile.path
-    val basePath = file.project.basePath ?: return false // Should never be null in cash-server
+    val basePath = file.project.basePath ?: return false
 
     // Check if the file path starts with the base path
     if (!filePath.startsWith(basePath)) return false

@@ -16,7 +16,9 @@ import com.intellij.psi.PsiManager
 import com.intellij.psi.codeStyle.CodeStyleSettings
 import java.util.concurrent.ConcurrentHashMap
 
-/** A listener that formats a document when it is saved. */
+/**
+ * A listener that formats a document when it is saved.
+ */
 class FormatOnSaveListener(private val project: Project, private val formatter: AsyncDocumentFormattingService) :
   FileDocumentManagerListener {
 
