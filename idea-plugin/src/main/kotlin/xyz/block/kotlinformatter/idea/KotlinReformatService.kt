@@ -34,7 +34,6 @@ class KotlinReformatService : AsyncDocumentFormattingService() {
    * called.
    */
   override fun canFormat(file: PsiFile): Boolean {
-    // if (!file.project.isCashServer()) return false TODO: Replace this logic
     if (!file.name.endsWith(".kt")) return false
 
     return !isFormattingIgnored(file)
@@ -111,14 +110,12 @@ class KotlinReformatService : AsyncDocumentFormattingService() {
   private fun Project.getFileContent(filePath: String): String? {
     val rootDir = this.guessProjectDir()
     if (rootDir == null) {
-      // TODO: Replace with logger
-      println("The project root directory is null - skipping")
+      LOG.info("The project root directory is null - skipping")
       return null
     }
     val file = rootDir.findFile(filePath)
     if (file == null) {
-      // TODO: Replace with logger
-      println("The file at $filePath is missing")
+      LOG.info("The file at $filePath is missing")
       return null
     }
     return file.loadText()

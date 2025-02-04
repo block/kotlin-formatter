@@ -7,8 +7,6 @@ import com.intellij.openapi.startup.ProjectActivity
 
 class FormatOnSavePostStartupActivity : ProjectActivity {
   override suspend fun execute(project: Project) {
-//    if (!project.isCashServer()) return TODO: Replace this
-
     try {
       logger.debug("Registering KotlinFormatOnSaveListener for file document-related events for ${project.name}")
       project.messageBus
