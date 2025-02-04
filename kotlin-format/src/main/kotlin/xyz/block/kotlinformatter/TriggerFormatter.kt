@@ -1,10 +1,20 @@
 package xyz.block.kotlinformatter
 
 import java.io.*
+import java.util.SortedSet
 import java.util.concurrent.atomic.AtomicLong
 
-internal class TriggerFormatter(private val formatter: Formatter) {
+class TriggerFormatter(private val formatter: Formatter) {
   private val charsProcessed = AtomicLong(0)
+
+  fun format(configs: FormattingConfigs): FormattingResults {
+    val results = configs.formattables
+      .parallelStream()
+      .map { formattable -> format(formattable, configs) }
+      .toList()
+      .toSortedSet()
+    return FormattingResults(results, charsProcessed())
+  }
 
   fun format(formattable: Formattable, configs: FormattingConfigs): FormattingResult {
     val fileName = formattable.name()
@@ -46,14 +56,18 @@ internal class TriggerFormatter(private val formatter: Formatter) {
   }
 
   companion object {
-    sealed class FormattingResult(private val compareOrder: Int, val fileName: String) : Comparable<FormattingResult> {
+    data class FormattingResults(val results: SortedSet<FormattingResult>, val charsProcessed: Long)
+
+    sealed class FormattingResult(private val compareOrder: Int, val fileName: String) :
+      Comparable<FormattingResult> {
       class AlreadyFormatted(fileName: String) : FormattingResult(0, fileName)
 
       class WouldFormat(fileName: String) : FormattingResult(1, fileName)
 
       class Formatted(fileName: String) : FormattingResult(2, fileName)
 
-      class FormattingError(fileName: String, val message: String, val e: Exception) : FormattingResult(3, fileName)
+      class FormattingError(fileName: String, val message: String, val e: Exception) :
+        FormattingResult(3, fileName)
 
       override fun compareTo(other: FormattingResult): Int {
         if (this.compareOrder != other.compareOrder) {

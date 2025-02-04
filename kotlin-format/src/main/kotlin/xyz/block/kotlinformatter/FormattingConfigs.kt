@@ -8,7 +8,7 @@ import java.nio.file.Paths
 import kotlin.io.path.*
 
 /** Configuration for the formatter. */
-internal data class FormattingConfigs private constructor(val formattables: List<Formattable>, val dryRun: Boolean) {
+data class FormattingConfigs private constructor(val formattables: List<Formattable>, val dryRun: Boolean) {
   companion object {
     fun forWorkingDir(paths: List<String>, dryRun: Boolean = false): FormattingConfigs {
       val files = expandFileNamesFromWorkingDir(paths)
