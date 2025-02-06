@@ -1,5 +1,8 @@
 name: Idea major version upgrade
 on:
+  push:
+    branches:
+      - "mehdi.auto-ij-version-upgrade-test"
   workflow_dispatch:
   schedule:
     - cron:  '0 0 * * *'
@@ -10,6 +13,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: mehdi.auto-ij-version-upgrade-test
       - run: ./scripts/upgrade-major-versions.sh
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
@@ -17,3 +22,4 @@ jobs:
           branch: auto/idea-major-version-upgrade
           delete-branch: true
           title: "[Automatic] Upgrade of the idea major versions"
+          base: mehdi.auto-ij-version-upgrade-test
