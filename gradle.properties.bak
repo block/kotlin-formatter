@@ -1,5 +1,5 @@
 # The latest supported versions of IntelliJ. Note that these are updated automatically
-IIC.release.version=243.23654.189
+IIC.release.version=242.21565.193
 
 org.gradle.jvmargs=-Dfile.encoding=UTF-8 -XX:+HeapDumpOnOutOfMemoryError
 org.gradle.caching=true
