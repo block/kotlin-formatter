@@ -8,6 +8,8 @@ import com.intellij.openapi.diagnostic.Logger
 import com.intellij.psi.PsiFile
 import xyz.block.kotlinformatter.Ktfmt
 import xyz.block.kotlinformatter.idea.KotlinReformatService.Companion.FORMATTING_IGNORE_FILE
+import java.io.File
+import kotlin.text.Charsets.UTF_8
 
 /**
  * A service that overrides the default IntelliJ formatting behavior for Kotlin files.
@@ -34,12 +36,12 @@ class KotlinReformatService : AsyncDocumentFormattingService() {
     return !isFormattingIgnored(file)
   }
 
-  override fun createFormattingTask(request: AsyncFormattingRequest): FormattingTask? {
+  override fun createFormattingTask(request: AsyncFormattingRequest): FormattingTask {
     return object : FormattingTask {
       override fun run() {
         ApplicationManager.getApplication().executeOnPooledThread {
           try {
-            val formattedCode = Ktfmt().format(request.documentText)
+            val formattedCode = format(request)
             request.onTextReady(formattedCode)
           } catch (e: Exception) {
             // If an error occurs, notify IntelliJ
@@ -60,6 +62,41 @@ class KotlinReformatService : AsyncDocumentFormattingService() {
 
   override fun getName(): String {
     return "Reformat Kotlin Files"
+  }
+
+  private fun format(request: AsyncFormattingRequest): String {
+    val file = request.context.psiElement.containingFile
+    val scriptPath = file.project.getService(FormatConfigurationService::class.java).scriptPath
+    return if (scriptPath != null) {
+
+      val process = ProcessBuilder(scriptPath, "--set-exit-if-changed", "-")
+        .directory(file.project.basePath?.let { File(it) })
+        .start()
+
+      // Stream file content to the process's input
+      file.virtualFile.inputStream.use { inputStream ->
+        process.outputStream.use { outputStream -> inputStream.copyTo(outputStream) }
+      }
+
+      val formattedContent = process.inputStream.bufferedReader(UTF_8).use { it.readText() }
+
+      // Wait for the process to complete
+      val exitCode = process.waitFor()
+      LOG.info("Process exited with code: $exitCode")
+      return when (exitCode) {
+        3 -> formattedContent
+        0 -> {
+          LOG.info("Nothing to format")
+          request.documentText
+        }
+        else -> {
+          LOG.error("Formatting failed with exit code $exitCode")
+          request.documentText
+        }
+      }
+    } else {
+      Ktfmt().format(request.documentText)
+    }
   }
 
   /**
