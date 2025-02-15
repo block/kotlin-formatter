@@ -8,7 +8,7 @@ junitPlatform = "1.11.4"
 kotlin = "2.1.10"
 ktfmt = "0.54"
 mavenPublish = "0.30.0"
-mordant = "3.0.1"
+mordant = "3.0.2"
 shadow = "8.3.6"
 
 [libraries]
