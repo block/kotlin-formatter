@@ -2,8 +2,8 @@ name: Publish
 
 on:
   push:
-    tags:
-      - '[0-9]+.[0-9]+.[0-9]+'
+    branches:
+      - mehdi.plugin-release-test
 
 permissions:
   contents: write
@@ -62,43 +62,6 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
-
-      - name: Execute buildHealth for build-logic
-        run: './gradlew -p build-logic buildHealth -s'
-
-      - name: Execute check
-        run: './gradlew check -s'
-
-      - name: Execute buildHealth for main project
-        run: './gradlew buildHealth -s'
-
-      - name: Publish artifacts
-        run: './gradlew publishToMavenCentral -s --no-configuration-cache'
-
-      - name: Prepare assets for Github Release
-        run: |
-          echo "Renaming assets to match Maven Central naming conventions."
-          mv kotlin-format/build/libs/kotlin-format-${{ needs.release_version.outputs.version }}-all.jar kotlin-format/build/libs/kotlin-formatter-${{ needs.release_version.outputs.version }}-all.jar
-          mv kotlin-format/build/distributions/kotlin-format-shadow-${{ needs.release_version.outputs.version }}.zip kotlin-format/build/distributions/kotlin-formatter-dist-${{ needs.release_version.outputs.version }}.zip
-
-      - name: Extract release notes
-        id: release_notes
-        uses: ffurrer2/extract-release-notes@v2
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ needs.release_version.outputs.version }}
-          name: ${{ needs.release_version.outputs.version }}
-          body: |
-            ${{ steps.release_notes.outputs.release_notes }}
-          draft: false
-          prerelease: false
-          files: |
-            kotlin-format/build/libs/kotlin-formatter-${{ needs.release_version.outputs.version }}-all.jar
-            kotlin-format/build/distributions/kotlin-formatter-dist-${{ needs.release_version.outputs.version }}.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish Idea Plugin
         run: |
