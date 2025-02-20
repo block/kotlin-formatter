@@ -64,4 +64,4 @@ jobs:
           ./gradlew idea-plugin:patchPluginXml
           ./gradlew idea-plugin:publishPlugin
         env:
-          JETBRAINS_TOKEN: ${{ secrets.JETBRAINS_PLUGIN_TOKEN }}
+          JETBRAINS_TOKEN: ${{ secrets.JETBRAINS_MARKETPLACE_SQUARE_PLUGINS }}
