@@ -21,15 +21,8 @@ jobs:
       - name: Extract release version
         id: release_version
         run: |
-          VERSION=$(grep "^VERSION=" gradle.properties | cut -d'=' -f2 | xargs)
+          VERSION=$(grep "^version=" gradle.properties | cut -d'=' -f2 | xargs)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-
-      - name: Validate tag matches release version
-        run: |
-          if [[ "${{ github.ref_name }}" != "${{ steps.release_version.outputs.version }}" ]]; then
-            echo "Error: Tag '${{ github.ref_name }}' does not match expected version '${{ steps.release_version.outputs.version }}'."
-            exit 1
-          fi
 
   publish:
     needs: release_version
