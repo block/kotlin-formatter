@@ -61,7 +61,6 @@ jobs:
           export IJ_PLUGIN_VERSION="${{ needs.release_version.outputs.version }}"
           echo "IJ_PLUGIN_VERSION=$IJ_PLUGIN_VERSION" >> $GITHUB_ENV
 
-          ./gradlew idea-plugin:patchPluginXml
           ./gradlew idea-plugin:publishPlugin
         env:
           JETBRAINS_TOKEN: ${{ secrets.JETBRAINS_MARKETPLACE_SQUARE_PLUGINS }}
