@@ -113,6 +113,54 @@ class DaemonTest {
   }
 
   @Test
+  fun `format command with file arguments`() {
+    val testFile = File(tempDir.toFile(), "FormatTest.kt")
+    val unformatted = "fun  foo()=println(\"Hello\")"
+    val expectedFormatted = "fun foo() = println(\"Hello\")\n"
+    testFile.writeText(unformatted)
+
+    val daemonData = daemon.readLockFile()
+    assertThat(daemonData).isNotNull
+
+    // Send format command
+    Socket("localhost", daemonData!!.port).use { socket ->
+      socket.getOutputStream().write("format ${testFile.absolutePath}\n".toByteArray())
+      val reader = socket.getInputStream().bufferedReader()
+      val exitCode = reader.readLine()
+      assertThat(exitCode).isEqualTo(ExitCode.SUCCESS.toString())
+      val output = reader.readText()
+      assertThat(output).contains("✅ Formatted")
+    }
+
+    // Verify file content
+    val formattedContent = testFile.readText()
+    assertThat(formattedContent).isEqualTo(expectedFormatted)
+  }
+
+  @Test
+  fun `format command with 'stdin' mode`() {
+    val unformatted = "fun  foo()=println(\"Hello\")"
+    val expectedFormatted = "fun foo() = println(\"Hello\")\n"
+
+    val daemonData = daemon.readLockFile()
+    assertThat(daemonData).isNotNull
+
+    // Send format -
+    Socket("localhost", daemonData!!.port).use { socket ->
+      val outputStream = socket.getOutputStream()
+      outputStream.write("format -\n".toByteArray())
+      outputStream.write(unformatted.toByteArray())
+      outputStream.write("\n\u0004\n".toByteArray())
+
+      val reader = socket.getInputStream().bufferedReader()
+      val exitCode = reader.readLine()
+      assertThat(exitCode).isEqualTo(ExitCode.SUCCESS.toString())
+      val output = reader.readText()
+      assertThat(output).isEqualTo(expectedFormatted)
+    }
+  }
+
+  @Test
   fun `handles pre-commit command`() {
     val testFile = File(tempDir.toFile(), "Test.kt")
     testFile.writeText("""

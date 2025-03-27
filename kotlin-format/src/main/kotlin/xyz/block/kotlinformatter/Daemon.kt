@@ -1,5 +1,6 @@
 package xyz.block.kotlinformatter
 
+import java.io.ByteArrayInputStream
 import java.io.RandomAccessFile
 import java.net.ServerSocket
 import java.net.Socket
@@ -130,6 +131,38 @@ class Daemon(
                       "Time until idle timeout: ${idleTimeout.seconds - idleTime.seconds}s\n" +
                       "Time until max runtime timeout: ${maxRuntime.seconds - totalRuntime.seconds}s"
                   clientSocket.write(ExitCode.SUCCESS, response)
+                }
+                
+                "format" -> {
+                  lastCommandTime = Instant.now()
+                  val fileArgs = messageParts.drop(1)
+                  if (fileArgs.isEmpty()) {
+                    clientSocket.write(ExitCode.FAILURE, "No files provided for format command")
+                  } else if (fileArgs.size == 1 && fileArgs[0] == "-") {
+                    // Process the code starting from a newline and ending at ASCII EOT (04)
+                    // Usage: (echo "format -"; echo <CODE>; echo -ne '\04\n') | nc localhost <PORT>
+                    // Or replace "echo <CODE>" to "cat" for standard input 
+                    val inputLines = mutableListOf<String>()
+                    while (true) {
+                      val line = reader.readLine() ?: break
+                      if (line.trim() == "\u0004") break
+                      inputLines.add(line)
+                    }
+                    val inputContent = inputLines.joinToString("\n")
+                    val inputStream = ByteArrayInputStream(inputContent.toByteArray())
+                    lateinit var formatted: String 
+                    val result = KotlinFormatter(
+                      files = listOf("-"),
+                      inputStream = inputStream,
+                      outputCallback = { formatted = it }
+                    ).format()
+                    val exitCode = if (result.hasFailure) ExitCode.FAILURE else ExitCode.SUCCESS
+                    clientSocket.write(exitCode, if (result.hasFailure) result.output else formatted)
+                  } else {
+                    val result = KotlinFormatter(files = fileArgs).format()
+                    val exitCode = if (result.hasFailure) ExitCode.FAILURE else ExitCode.SUCCESS
+                    clientSocket.write(exitCode, result.output)
+                  }
                 }
 
                 "pre-commit" -> {
