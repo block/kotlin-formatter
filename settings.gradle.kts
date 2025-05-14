@@ -13,7 +13,7 @@ pluginManagement {
 
 plugins {
   id("org.gradle.toolchains.foojay-resolver-convention") version "0.10.0"
-  id("org.jetbrains.intellij.platform.settings") version "2.5.0"
+  id("org.jetbrains.intellij.platform.settings") version "2.6.0"
   id("block.settings")
 }
 
