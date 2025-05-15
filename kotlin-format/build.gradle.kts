@@ -75,7 +75,7 @@ tasks.register("buildBinary", Sync::class.java) {
 // ----------------------
 mavenPublishing {
   coordinates(group.toString(), artifactName, version.toString())
-  publishToMavenCentral(SonatypeHost.S01, automaticRelease = true)
+  publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = true)
   signAllPublications()
 
   pom {
