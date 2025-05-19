@@ -7,7 +7,7 @@ junitJupiter = "5.12.2"
 junitPlatform = "1.12.2"
 kotlin = "2.1.20"
 ktfmt = "0.54"
-mavenPublish = "0.31.0"
+mavenPublish = "0.32.0"
 mordant = "3.0.2"
 shadow = "8.3.6"
 
