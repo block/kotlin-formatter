@@ -1,5 +1,6 @@
 # Kotlin Formatter
 
+
 [![release](https://img.shields.io/maven-central/v/xyz.block.kotlin-formatter/kotlin-formatter?label=release&color=blue)](https://central.sonatype.com/namespace/xyz.block.kotlin-formatter)
 [![main](https://github.com/block/kotlin-formatter/actions/workflows/push.yml/badge.svg)](https://github.com/block/kotlin-formatter/actions/workflows/push.yml)
 
