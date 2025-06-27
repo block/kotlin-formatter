@@ -1,5 +1,4 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -75,7 +74,7 @@ tasks.register("buildBinary", Sync::class.java) {
 // ----------------------
 mavenPublishing {
   coordinates(group.toString(), artifactName, version.toString())
-  publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = true)
+  publishToMavenCentral(automaticRelease = true)
   signAllPublications()
 
   pom {
