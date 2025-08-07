@@ -257,7 +257,6 @@ class CliTest {
   }
 
   @Test
-  @Tag("integration")
   fun `exercise scenario with file renaming`(@TempDir tempDir: File) {
     val testDir = TestFixtures.setupTestDirectory(tempDir)
     TestUtils.withWorkingDir(testDir.rootDir) {
@@ -277,7 +276,6 @@ class CliTest {
   }
 
   @Test
-  @Tag("integration")
   fun `exercise scenario with file deletion and addition`(@TempDir tempDir: File) {
     val testDir = TestFixtures.setupTestDirectory(tempDir)
     TestUtils.withWorkingDir(testDir.rootDir) {

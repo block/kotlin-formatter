@@ -120,18 +120,9 @@ publishing {
 // Test Configuration
 // ----------------------
 
-tasks.withType<Test>().configureEach { useJUnitPlatform() }
-
-tasks.named("test", Test::class.java).configure {
-  useJUnitPlatform {
-    excludeTags("integration")
-  }
-}
-
-tasks.register("integrationTest", Test::class.java) {
-  useJUnitPlatform {
-    includeTags("integration")
-  }
+tasks.test {
+  useJUnitPlatform()
+  environment("KOTLIN_FORMATTER_STATS", "false")
   dependsOn(shadowJar)
   environment("JAR_UNDER_TEST", shadowJar.map { it.outputs.files.singleFile.absolutePath }.get())
 }
