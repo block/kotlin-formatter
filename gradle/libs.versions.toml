@@ -9,10 +9,10 @@ kotlin = "2.2.20"
 ktfmt = "0.58"
 mavenPublish = "0.34.0"
 mordant = "3.0.2"
-shadow = "9.1.0"
+shadow = "9.2.2"
 
 [libraries]
-assertj = { module = "org.assertj:assertj-core", version = "3.27.5" }
+assertj = { module = "org.assertj:assertj-core", version = "3.27.6" }
 clikt = { module = "com.github.ajalt.clikt:clikt", version.ref = "clikt" }
 cliktCore = { module = "com.github.ajalt.clikt:clikt-core", version.ref = "clikt" }
 dependencyAnalysisPlugin = { module = "com.autonomousapps:dependency-analysis-gradle-plugin", version.ref = "dependencyAnalysis" }
