@@ -1,7 +1,7 @@
 [versions]
 clikt = "5.0.3"
 dependencyAnalysis = "3.0.4"
-develocity = "4.2"
+develocity = "4.2.1"
 java = "17"
 junitJupiter = "5.13.4"
 junitPlatform = "1.13.4"
