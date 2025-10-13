@@ -1,6 +1,6 @@
 [versions]
 clikt = "5.0.3"
-dependencyAnalysis = "3.0.4"
+dependencyAnalysis = "3.1.0"
 develocity = "4.2.1"
 java = "17"
 junitJupiter = "5.14.0"
