@@ -11,6 +11,12 @@
 ### Fixed:
 - Nothing yet!
 
+## [1.4.1] - 2025-10-14
+
+### Changed:
+- Updated ktfmt to `v0.59`.
+- Updated various other internal dependencies.
+
 ## [1.4.0] - 2025-09-24
 
 ### Changed:
