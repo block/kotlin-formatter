@@ -149,3 +149,4 @@ Make sure "Optimize imports" is NOT enabled for the "Kotlin" file type.
 
 ### IntelliJ IDEA Plugin Installation
 [Download from JetBrains Marketplace](https://plugins.jetbrains.com/plugin/26482-kotlin-formatter)
+
