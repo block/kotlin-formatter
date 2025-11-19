@@ -11,6 +11,14 @@
 ### Fixed:
 - Nothing yet!
 
+## [1.5.0] - 2025-11-19
+
+### New:
+- Added a gradle plugin (id: `xyz.block.kotlinformatter`)
+
+### Changed:
+- Updated various internal dependencies.
+
 ## [1.4.1] - 2025-10-14
 
 ### Changed:

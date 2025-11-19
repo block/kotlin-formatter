@@ -160,7 +160,7 @@ You can apply the plugin by adding the necessary entry to your version catalog:
 ```
 ...
 [plugins]
-kotlinFormatter = { id = "xyz.block.kotlinformatter", version = "1.4.1" } # replace version with latest
+kotlinFormatter = { id = "xyz.block.kotlinformatter", version = "1.5.0" } # replace version with latest
 ```
 
 and then applying it in your gradle projects:
