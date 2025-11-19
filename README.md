@@ -6,6 +6,7 @@
 This project provides:
 - **A command-line tool for formatting Kotlin source code files**, implemented as a wrapper around [ktfmt](https://github.com/facebook/ktfmt/tree/main).
 - **An IntelliJ idea plugin** for formatting Kotlin source code files.
+- **A gradle plugin** for formatting and checking the format of Kotlin source code files.
 
 It can be used to automate code formatting, ensuring a **clean and consistent codebase**, while integrating seamlessly into development workflows.
 
@@ -149,3 +150,33 @@ Make sure "Optimize imports" is NOT enabled for the "Kotlin" file type.
 
 ### IntelliJ IDEA Plugin Installation
 [Download from JetBrains Marketplace](https://plugins.jetbrains.com/plugin/26482-kotlin-formatter)
+
+## Gradle Plugin Overview
+The gradle plugin provides `applyFormatting` and `checkFormatting` tasks, that apply and check the formatting respectively.
+Note that `checkFormatting` checks the formatting of the **committed** code, and therefore is primarily meant to be used together with a pre-commit git hook (coming soon) that does the formatting.
+
+### Usage
+You can apply the plugin by adding the necessary entry to your version catalog:
+```
+...
+[plugins]
+kotlinFormatter = { id = "xyz.block.kotlinformatter", version = "1.4.1" } # replace version with latest
+```
+
+and then applying it in your gradle projects:
+```
+plugins {
+  alias(libs.plugins.kotlinFormatter)
+}
+```
+
+Although the tasks are created, they are not attached to any lifecycle tasks by default. You may attach them as dependencies depending on your preferred workflow.
+
+### Configuration
+The gradle plugin by default looks for the kotlin-format binary at `bin/kotlin-format` relative to the root project of the Gradle build.
+This is intended to work with the recommended configuration of using hermit to manage your build tooling.
+If your `kotlin-format` binary is somewhere else, you can set a project property in your gradle.properties file to tell the plugin where to look. For example:
+
+```properties
+xyz.block.kotlinformatter.binary=../some/other/path/bin/kotlin-format
+```

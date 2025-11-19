@@ -27,4 +27,5 @@ dependencyResolutionManagement {
 }
 
 include("kotlin-format")
+include("gradle-plugin")
 include("idea-plugin")
