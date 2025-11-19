@@ -4,7 +4,7 @@ plugins {
   id("java-gradle-plugin")
   id("org.jetbrains.kotlin.jvm")
   id("com.autonomousapps.dependency-analysis")
-  alias(libs.plugins.mavenPublish)
+  id("com.vanniktech.maven.publish")
 }
 
 dependencies {

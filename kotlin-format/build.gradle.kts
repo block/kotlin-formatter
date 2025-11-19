@@ -5,8 +5,8 @@ plugins {
   id("application")
   id("org.jetbrains.kotlin.jvm")
   id("com.autonomousapps.dependency-analysis")
+  id("com.vanniktech.maven.publish")
   alias(libs.plugins.shadow)
-  alias(libs.plugins.mavenPublish)
 }
 
 dependencies {
