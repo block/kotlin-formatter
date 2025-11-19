@@ -39,7 +39,7 @@ abstract class FormattingTask @Inject constructor(@Internal val execOps: ExecOpe
 
   companion object {
     fun checkTask(project: Project) {
-      val binary = project.findProperty("xyz.block.kotlinfromatter.binary") as? String
+      val binary = project.findProperty("xyz.block.kotlin-formatter.binary") as? String
       project.tasks.register("checkFormatting", FormattingTask::class.java) {
         it.binary.set(binary ?: "bin/kotlin-format")
         it.rootDir.set(project.rootDir)
@@ -50,7 +50,7 @@ abstract class FormattingTask @Inject constructor(@Internal val execOps: ExecOpe
     }
 
     fun applyTask(project: Project) {
-      val binary = project.findProperty("xyz.block.kotlinfromatter.binary") as? String
+      val binary = project.findProperty("xyz.block.kotlin-formatter.binary") as? String
       project.tasks.register("applyFormatting", FormattingTask::class.java) {
         it.binary.set(binary ?: "bin/kotlin-format")
         it.rootDir.set(project.rootDir)

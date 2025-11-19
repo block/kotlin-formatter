@@ -160,7 +160,7 @@ You can apply the plugin by adding the necessary entry to your version catalog:
 ```
 ...
 [plugins]
-kotlinFormatter = { id = "xyz.block.kotlinformatter", version = "1.5.0" } # replace version with latest
+kotlinFormatter = { id = "xyz.block.kotlin-formatter", version = "1.5.2" } # replace version with latest
 ```
 
 and then applying it in your gradle projects:
@@ -178,5 +178,5 @@ This is intended to work with the recommended configuration of using hermit to m
 If your `kotlin-format` binary is somewhere else, you can set a project property in your gradle.properties file to tell the plugin where to look. For example:
 
 ```properties
-xyz.block.kotlinformatter.binary=../some/other/path/bin/kotlin-format
+xyz.block.kotlin-formatter.binary=../some/other/path/bin/kotlin-format
 ```

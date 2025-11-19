@@ -14,6 +14,7 @@ dependencies {
 
 val javaTarget = JavaLanguageVersion.of(libs.versions.java.get())
 val kotlinTarget = JvmTarget.fromTarget(libs.versions.java.get())
+val artifactName = "gradle-plugin"
 
 java {
   toolchain {
@@ -34,20 +35,25 @@ tasks.withType<JavaCompile> {
 gradlePlugin {
   plugins {
     create("kotlin-formatter") {
-      id = "xyz.block.kotlinformatter"
+      id = "xyz.block.kotlin-formatter"
       implementationClass = "xyz.block.kotlinformatter.GradlePlugin"
     }
   }
 }
 
+group = providers.gradleProperty("group").get()
+version = providers.gradleProperty("version").get()
+
 // ----------------------
 // Publishing Configuration
 // ----------------------
 mavenPublishing {
+  coordinates(group.toString(), artifactName, version.toString())
   publishToMavenCentral(automaticRelease = true)
   signAllPublications()
 
   pom {
+    name.set("gradle-plugin")
     description.set("A gradle plugin to apply and check code formatting for Kotlin.")
     inceptionYear.set("2024")
     url.set("https://github.com/block/kotlin-formatter")
