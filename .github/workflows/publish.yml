@@ -79,6 +79,7 @@ jobs:
           echo "Renaming assets to match Maven Central naming conventions."
           mv kotlin-format/build/libs/kotlin-format-${{ needs.release_version.outputs.version }}-all.jar kotlin-format/build/libs/kotlin-formatter-${{ needs.release_version.outputs.version }}-all.jar
           mv kotlin-format/build/distributions/kotlin-format-shadow-${{ needs.release_version.outputs.version }}.zip kotlin-format/build/distributions/kotlin-formatter-dist-${{ needs.release_version.outputs.version }}.zip
+          zip -r kotlin-format/build/distributions/kotlin-formatter-githooks-${{ needs.release_version.outputs.version }}.zip git-hooks/
 
       - name: Extract release notes
         id: release_notes
@@ -96,6 +97,7 @@ jobs:
           files: |
             kotlin-format/build/libs/kotlin-formatter-${{ needs.release_version.outputs.version }}-all.jar
             kotlin-format/build/distributions/kotlin-formatter-dist-${{ needs.release_version.outputs.version }}.zip
+            kotlin-format/build/distributions/kotlin-formatter-githooks-${{ needs.release_version.outputs.version }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
