@@ -11,6 +11,14 @@
 ### Fixed:
 - Nothing yet!
 
+## [1.6.0] - 2025-11-24
+
+### New:
+- Added git hooks (available as a separate artifact to the github release, with a dedicated hermit package coming soon)
+
+### Changed:
+- Updated some internal dependencies.
+
 ## [1.5.2] - 2025-11-19
 
 ### Fixed:
