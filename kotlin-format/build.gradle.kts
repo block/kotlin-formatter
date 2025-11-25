@@ -77,6 +77,10 @@ distributions.named("shadow").configure {
   }
 }
 
+tasks.shadowDistZip {
+  archiveBaseName.set("kotlin-formatter-dist")
+}
+
 // ----------------------
 // Publishing Configuration
 // ----------------------

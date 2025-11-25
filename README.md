@@ -115,7 +115,7 @@ A pre-packaged distribution is available on [Maven Central](https://repo1.maven.
 VERSION=X.Y.Z
 curl -L -o kotlin-formatter-dist.zip https://github.com/block/kotlin-formatter/releases/download/$VERSION/kotlin-formatter-dist-$VERSION.zip
 unzip kotlin-formatter-dist.zip
-cd kotlin-format-shadow-$VERSION
+cd kotlin-formatter-dist-$VERSION # dir was kotlin-format-shadow-$VERSION up to and including v1.6.1
 ```
 Once downloaded and extracted, you can run the CLI with:
 ```bash
