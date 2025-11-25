@@ -32,7 +32,7 @@ format_kotlin_staged_files() {
 
   echo ""
   set +eo pipefail
-  "${KOTLIN_FORMATTER_EXE:-bin/kotlin-formatter}" --pre-commit "${staged_modules[@]}" | sed 's/^/- /'
+  "${KOTLIN_FORMATTER_EXE:-bin/kotlin-format}" --pre-commit "${staged_modules[@]}" | sed 's/^/- /'
   formatting_exit_status=${PIPESTATUS[0]}
   set -eo pipefail
   echo ""

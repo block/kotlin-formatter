@@ -20,7 +20,7 @@ echo_error() {
 check_pushed_commits_formatting() {
   local remote="$1"
   local push_sha="$2"
-  local exe="${KOTLIN_FORMATTER_EXE:-bin/kotlin-formatter}"
+  local exe="${KOTLIN_FORMATTER_EXE:-bin/kotlin-format}"
 
   declare -a paths_to_check
   while IFS= read -r filename; do
