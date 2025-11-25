@@ -11,6 +11,11 @@
 ### Fixed:
 - Nothing yet!
 
+## [1.6.1] - 2025-11-25
+
+### Fixed:
+- Attempt to fix broken publish of 1.6.0
+
 ## [1.6.0] - 2025-11-24
 
 ### New:
