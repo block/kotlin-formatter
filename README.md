@@ -186,6 +186,7 @@ The git hooks in the `git-hooks/` folder provide a convenient way to automatical
 Notably, the pre-commit hook uses the `--pre-commit` command-line option for the binary, which ensures that for partially staged files (e.g. via `git add -p`) only the staged component is formatted, while the on-disk file is left unformatted.
 Likewise, the pre-push hook ensures the committed code being pushed is formatted, rather than checking what's on-disk.
 
-To use these, you can symlink the hook scripts into your git hooks directory, or `source` them from existing pre-commit or pre-push scripts as needed.
+To use these, you can symlink the hook scripts into your git hooks directory, or invoke them from existing pre-commit or pre-push scripts as needed.
+Note that the pre-push hook in particular expects arguments and stdin matching the standard git pre-push hook contract, so if you are invoking this hook as a subroutine from your own pre-push hook, you will need to ensure the arguments and stdin are set up correctly.
 Both scripts assume the formatter binary is available at `bin/kotlin-format` relative to the git root, which conforms to the expected setup when using the Hermit package.
 However, the `KOTLIN_FORMATTER_EXE` environment variable may be set in order to override this location if needed.
