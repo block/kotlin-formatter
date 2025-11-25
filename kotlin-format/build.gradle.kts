@@ -69,6 +69,14 @@ tasks.register("buildBinary", Sync::class.java) {
   into(layout.projectDirectory.dir("build/release"))
 }
 
+distributions.named("shadow").configure {
+  contents {
+    from(project.rootDir) {
+      include("git-hooks/*")
+    }
+  }
+}
+
 // ----------------------
 // Publishing Configuration
 // ----------------------
