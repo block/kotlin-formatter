@@ -11,6 +11,18 @@
 ### Fixed:
 - Nothing yet!
 
+## [1.6.2] - 2025-11-25
+
+### New:
+- The published distribution zip now includes git hooks
+
+### Changed:
+- The git hook filenames were renamed to have a `kotlin-format.` prefix to avoid potential conflict
+- The published distribution zip unpacks to `kotlin-formatter-dist-<version>` instead of `kotlin-format-shadow-<version>` which is more idiomatic
+
+### Fixed:
+- Update git hooks to use `bin/kotlin-format` instead of `bin/kotlin-formatter` as the default binary path
+
 ## [1.6.1] - 2025-11-25
 
 ### Fixed:
