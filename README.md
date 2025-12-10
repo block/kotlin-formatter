@@ -178,6 +178,7 @@ This is intended to work with the recommended configuration of using hermit to m
 If your `kotlin-format` binary is somewhere else, you can set a project property in your gradle.properties file to tell the plugin where to look. For example:
 
 ```properties
+# root gradle.properties
 xyz.block.kotlin-formatter.binary=../some/other/path/bin/kotlin-format
 ```
 

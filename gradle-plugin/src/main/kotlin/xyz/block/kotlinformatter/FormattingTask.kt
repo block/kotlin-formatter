@@ -38,10 +38,12 @@ abstract class FormattingTask @Inject constructor(@Internal val execOps: ExecOpe
   }
 
   companion object {
+    private const val PROP_NAME = "xyz.block.kotlin-formatter.binary"
+    private const val BIN_DEFAULT = "bin/kotlin-format"
+
     fun checkTask(project: Project) {
-      val binary = project.findProperty("xyz.block.kotlin-formatter.binary") as? String
       project.tasks.register("checkFormatting", FormattingTask::class.java) {
-        it.binary.set(binary ?: "bin/kotlin-format")
+        it.binary.set(binary(project))
         it.rootDir.set(project.rootDir)
         it.targetDir.set(project.projectDir)
         it.args.set(listOf("--pre-push", "--dry-run", "--set-exit-if-changed"))
@@ -50,14 +52,15 @@ abstract class FormattingTask @Inject constructor(@Internal val execOps: ExecOpe
     }
 
     fun applyTask(project: Project) {
-      val binary = project.findProperty("xyz.block.kotlin-formatter.binary") as? String
       project.tasks.register("applyFormatting", FormattingTask::class.java) {
-        it.binary.set(binary ?: "bin/kotlin-format")
+        it.binary.set(binary(project))
         it.rootDir.set(project.rootDir)
         it.targetDir.set(project.projectDir)
         it.args.empty()
         it.description = "Reformats the working directory for the project to be correctly formatted"
       }
     }
+
+    private fun binary(project: Project) = project.providers.gradleProperty(PROP_NAME).orElse(BIN_DEFAULT)
   }
 }
