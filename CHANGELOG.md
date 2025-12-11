@@ -13,6 +13,9 @@
 
 ## [1.6.3] - 2025-12-10
 
+### Changed:
+- Bump IDEA release version to latest.
+
 ### Fixed:
 - Task configuration is compatible with Isolated Projects.
 
