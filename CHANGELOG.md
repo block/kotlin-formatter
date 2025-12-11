@@ -11,6 +11,11 @@
 ### Fixed:
 - Nothing yet!
 
+## [1.6.3] - 2025-12-10
+
+### Fixed:
+- Task configuration is compatible with Isolated Projects.
+
 ## [1.6.2] - 2025-11-25
 
 ### New:
