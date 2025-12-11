@@ -46,7 +46,10 @@ Release procedure for Kotlin Formatter.
    git push origin x.y.z
    ```
 
-The tag will trigger a GitHub Action workflow which will upload the artifacts to Maven Central and create a GitHub release.
+The tag will trigger a GitHub Action workflow which will upload the artifacts to Maven Central and create a GitHub 
+release.
 
 ### JetBrains Marketplace Approval
-Releases of the IntelliJ IDEA plugin are subject to JetBrains' manual approval for every version. While the official documentation states that approval may take **2–3 business days**, in practice, the plugin may appear on the JetBrains Marketplace within approximately **3 hours**.
+Releases of the IntelliJ IDEA plugin are subject to JetBrains' manual approval for every version. While the official 
+documentation states that approval may take **2–3 business days**, in practice, the plugin may appear on the JetBrains 
+Marketplace within approximately **3 hours**.
