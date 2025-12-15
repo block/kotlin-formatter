@@ -82,7 +82,7 @@ jobs:
 
       - name: Extract release notes
         id: release_notes
-        uses: ffurrer2/extract-release-notes@cae32133495112d23e3569ad04fef240ba4e7bc8 # v2
+        uses: ffurrer2/extract-release-notes@202313ec7461b6b9e401996714484690ab1ae105 # v3
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2
