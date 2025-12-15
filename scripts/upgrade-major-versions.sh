@@ -42,7 +42,7 @@ updateIfNeeded() {
   latestMajor=$(majorVersion "${latest}")
   currentMajor=$(majorVersion "${current}")
 
-  if [ "$latestMajor" != "$currentMajor" ]; then
+  if [ "$latestMajor" -gt "$currentMajor" ]; then
     echo "Upgrading to ${latest}"
     setVersion "$typeCode" "$latest" "$releaseType"
   else
