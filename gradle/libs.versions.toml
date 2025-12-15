@@ -1,7 +1,7 @@
 [versions]
 clikt = "5.0.3"
 dependencyAnalysis = "3.5.1"
-develocity = "4.2.2"
+develocity = "4.3"
 java = "17"
 junitJupiter = "6.0.1"
 junitPlatform = "6.0.1"
@@ -9,7 +9,7 @@ kotlin = "2.2.21"
 ktfmt = "0.59"
 mavenPublish = "0.35.0"
 mordant = "3.0.2"
-shadow = "9.2.2"
+shadow = "9.3.0"
 
 [libraries]
 assertj = { module = "org.assertj:assertj-core", version = "3.27.6" }
