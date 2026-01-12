@@ -21,10 +21,10 @@ This installs a pre-commit hook that automatically formats your Kotlin code befo
 
 ```bash
 # Format all Kotlin files
-./gradlew applyFormatting
+gradle applyFormatting
 
 # Check formatting (same as CI)
-./gradlew checkFormatting
+gradle checkFormatting
 ```
 
 **IDE Plugin (recommended):**

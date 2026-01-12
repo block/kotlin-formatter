@@ -30,5 +30,5 @@ tasks.named("check") {
 // - checkFormatting: Checks if committed code is formatted (for CI)
 //
 // Run manually:
-//   ./gradlew applyFormatting  # Format all Kotlin files
-//   ./gradlew checkFormatting  # Check formatting (same as CI)
+//   gradle applyFormatting  # Format all Kotlin files
+//   gradle checkFormatting  # Check formatting (same as CI)

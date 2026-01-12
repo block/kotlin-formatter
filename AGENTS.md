@@ -244,7 +244,7 @@ The `checkFormatting` task is designed for CI:
 ```yaml
 # GitHub Actions example
 - name: Check Kotlin formatting
-  run: ./gradlew checkFormatting
+  run: gradle checkFormatting
 ```
 
 This checks **committed code** (not working directory), making it safe for CI.
