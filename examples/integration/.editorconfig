@@ -1,0 +1,32 @@
+# Example .editorconfig for kotlin-formatter integration
+#
+# This file provides editor-agnostic formatting settings that approximate
+# the kotlin-formatter style (ktfmt Google style, 120 char max width).
+#
+# Setup:
+#   Copy this file to your project root as `.editorconfig`
+#
+# Most IDEs (IntelliJ, VS Code, etc.) will automatically detect and use
+# these settings.
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{kt,kts}]
+indent_style = space
+indent_size = 2
+max_line_length = 120
+ij_kotlin_allow_trailing_comma = true
+ij_kotlin_allow_trailing_comma_on_call_site = true
+
+[*.{json,yml,yaml}]
+indent_style = space
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
