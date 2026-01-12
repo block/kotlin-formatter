@@ -39,3 +39,11 @@ kotlin-formatter.script-path=bin/kotlin-format
 ```
 
 Enable format-on-save: Settings → Tools → Actions on Save → "Reformat code" (select "Kotlin" file type, **disable** "Optimize imports" for Kotlin).
+
+**First-time setup:**
+
+Configure Git to ignore bulk reformatting commits in blame:
+
+```bash
+git config blame.ignoreRevsFile .git-blame-ignore-revs
+```

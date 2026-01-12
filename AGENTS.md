@@ -139,6 +139,62 @@ gradle checkFormatting
 Install the [kotlin-formatter IntelliJ plugin](https://plugins.jetbrains.com/plugin/26482-kotlin-formatter) to format on save.
 ```
 
+## Initial Bulk Reformatting
+
+When adding kotlin-formatter to an existing codebase, you'll likely need to reformat all existing files. To prevent this bulk reformat from polluting `git blame` history:
+
+### 1. Create `.git-blame-ignore-revs`
+
+After the bulk reformat commit is merged, add the merge commit SHA to `.git-blame-ignore-revs`:
+
+```bash
+# .git-blame-ignore-revs
+# Bulk reformat with kotlin-formatter
+<merge-commit-sha>
+```
+
+**Important:** Use the **merge commit SHA**, not the branch commit SHA.
+
+### 2. Configure Git to Use the Ignore File
+
+Developers need to configure their local Git to respect this file:
+
+```bash
+git config blame.ignoreRevsFile .git-blame-ignore-revs
+```
+
+Add this to project setup instructions in your README.
+
+### 3. GitHub Support
+
+GitHub automatically respects `.git-blame-ignore-revs` in the repository root, so blame views on GitHub will automatically skip these commits.
+
+### Example Workflow
+
+```bash
+# 1. Apply formatting to all files
+gradle applyFormatting
+
+# 2. Commit the changes
+git add .
+git commit -m "Format all Kotlin files with kotlin-formatter"
+
+# 3. Push and merge the PR
+git push
+gh pr create --fill
+# (merge the PR on GitHub)
+
+# 4. After merging, add the merge commit SHA to .git-blame-ignore-revs
+echo "" >> .git-blame-ignore-revs
+echo "# Bulk reformat with kotlin-formatter" >> .git-blame-ignore-revs
+echo "<merge-commit-sha>" >> .git-blame-ignore-revs
+git add .git-blame-ignore-revs
+git commit -m "Add bulk reformat commit to git-blame-ignore-revs"
+git push
+```
+
+**Reference:** See [misk PR #3606](https://github.com/cashapp/misk/pull/3606) for a real-world example.
+
 ## Available Gradle Tasks
 
 The plugin creates two tasks:

@@ -58,6 +58,57 @@ Add `.kotlinformatter/` to your `.gitignore` (see [gitignore](./gitignore)).
 
 Add setup instructions to your README (see [README-snippet.md](./README-snippet.md)).
 
+## Bulk Reformatting Existing Codebases
+
+If you're adding kotlin-formatter to a project with existing Kotlin code, you'll need to do an initial bulk reformat. To preserve `git blame` history:
+
+### 1. Apply Formatting
+
+```bash
+gradle applyFormatting
+git add .
+git commit -m "Format all Kotlin files with kotlin-formatter"
+git push
+gh pr create --fill
+```
+
+### 2. After Merging
+
+Once your bulk reformat PR is merged, add the merge commit SHA to `.git-blame-ignore-revs`:
+
+```bash
+# Copy the example file
+cp examples/integration/git-blame-ignore-revs .git-blame-ignore-revs
+
+# Add the merge commit SHA
+echo "" >> .git-blame-ignore-revs
+echo "# Bulk reformat with kotlin-formatter" >> .git-blame-ignore-revs
+echo "<merge-commit-sha>" >> .git-blame-ignore-revs
+
+# Commit and push
+git add .git-blame-ignore-revs
+git commit -m "Add bulk reformat commit to git-blame-ignore-revs"
+git push
+```
+
+### 3. Update Developer Setup Instructions
+
+Add to your README's setup section:
+
+```markdown
+## Setup
+
+Configure Git to ignore bulk reformatting commits in blame:
+
+\`\`\`bash
+git config blame.ignoreRevsFile .git-blame-ignore-revs
+\`\`\`
+```
+
+**Important:** GitHub automatically respects `.git-blame-ignore-revs`, but developers need to configure their local Git.
+
+**Reference:** See [misk PR #3606](https://github.com/cashapp/misk/pull/3606) for a real-world example.
+
 ## Files in This Directory
 
 | File | Purpose | Target Location |
@@ -68,6 +119,7 @@ Add setup instructions to your README (see [README-snippet.md](./README-snippet.
 | [build.gradle.kts](./build.gradle.kts) | Gradle plugin configuration | Project root or module |
 | [gradle.properties](./gradle.properties) | Optional binary location override | Project root |
 | [gitignore](./gitignore) | `.gitignore` additions | Append to `.gitignore` |
+| [git-blame-ignore-revs](./git-blame-ignore-revs) | Ignore bulk reformat in git blame | Project root as `.git-blame-ignore-revs` |
 | [kotlin-formatter.properties](./kotlin-formatter.properties) | IntelliJ plugin config | `.idea/kotlin-formatter.properties` |
 | [README-snippet.md](./README-snippet.md) | README documentation | Add to project README |
 
