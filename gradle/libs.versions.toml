@@ -1,13 +1,13 @@
 [versions]
-clikt = "5.0.3"
+clikt = "5.1.0"
 dependencyAnalysis = "3.5.1"
-develocity = "4.3"
+develocity = "4.3.1"
 java = "17"
 junitJupiter = "6.0.2"
 junitPlatform = "6.0.2"
 kotlin = "2.3.0"
 ktfmt = "0.61"
-mavenPublish = "0.35.0"
+mavenPublish = "0.36.0"
 mordant = "3.0.2"
 shadow = "9.3.1"
 
