@@ -1,7 +1,7 @@
 [versions]
 clikt = "5.1.0"
 dependencyAnalysis = "3.5.1"
-develocity = "4.3.1"
+develocity = "4.3.2"
 java = "17"
 junitJupiter = "6.0.2"
 junitPlatform = "6.0.2"
@@ -12,7 +12,7 @@ mordant = "3.0.2"
 shadow = "9.3.1"
 
 [libraries]
-assertj = { module = "org.assertj:assertj-core", version = "3.27.6" }
+assertj = { module = "org.assertj:assertj-core", version = "3.27.7" }
 clikt = { module = "com.github.ajalt.clikt:clikt", version.ref = "clikt" }
 cliktCore = { module = "com.github.ajalt.clikt:clikt-core", version.ref = "clikt" }
 dependencyAnalysisPlugin = { module = "com.autonomousapps:dependency-analysis-gradle-plugin", version.ref = "dependencyAnalysis" }
