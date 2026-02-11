@@ -1,0 +1,23 @@
+# Example lefthook.yml for kotlin-formatter integration
+#
+# This file demonstrates the recommended lefthook configuration for
+# automatic Kotlin code formatting on pre-commit.
+#
+# Setup:
+#   1. Install lefthook: `hermit install lefthook` (or via brew/npm)
+#   2. Copy this file to your project root as `lefthook.yml`
+#   3. Run `lefthook install` to install the hooks
+#
+# The pre-commit hook will:
+#   - Run in parallel with other pre-commit tasks
+#   - Format only staged Kotlin files
+#   - Stage the formatted changes automatically
+#   - Exit with non-zero if formatting changes were needed
+
+pre-commit:
+  parallel: true
+  commands:
+    format:
+      glob: "*.{kt,kts}"
+      run: bin/kotlin-format --set-exit-if-changed {staged_files}
+      stage_fixed: true
