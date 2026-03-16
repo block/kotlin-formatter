@@ -85,7 +85,7 @@ jobs:
         uses: ffurrer2/extract-release-notes@273da39a24fb7db106a35526c8162815faffd31d # v3
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@b25b93d384199fc0fc8c2e126b2d937a0cbeb2ae # v2
+        uses: softprops/action-gh-release@153bb8e04406b158c6c84fc1615b65b24149a1fe # v2
         with:
           tag_name: ${{ needs.release_version.outputs.version }}
           name: ${{ needs.release_version.outputs.version }}
