@@ -1,0 +1,6 @@
+# Example .gitignore additions for kotlin-formatter
+#
+# Add these lines to your project's .gitignore file
+
+# Kotlin Formatter daemon directory (experimental feature)
+.kotlinformatter/
