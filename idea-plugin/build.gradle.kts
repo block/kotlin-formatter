@@ -28,7 +28,7 @@ kotlin {
 val pluginName = "kotlin-formatter"
 val sinceIdeVersionForVerification = "243.21565.193" // corresponds to the 2024.3 version
 val sinceBuildMajorVersion = "241" // corresponds to 2024.1.x versions
-val untilIdeVersion = properties["IIC.release.version"] as String
+val untilIdeVersion = properties["IIU.release.version"] as String
 val untilBuildMajorVersion = untilIdeVersion.substringBefore('.')
 val pluginVersion = project.version.toString()
 

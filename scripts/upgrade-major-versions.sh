@@ -34,7 +34,7 @@ setVersion() {
 
 # Updates the version in gradle.properties if the major version of the latest release differs
 updateIfNeeded() {
-  typeCode="IIC"
+  typeCode="IIU"
   releaseType="release"
 
   latest=$(latestRelease "${typeCode}" "${releaseType}")
