@@ -11,6 +11,17 @@
 ### Fixed:
 - Nothing yet!
 
+## [1.7.0] - 2026-03-30
+### NEw:
+- ktfmt updated to 0.62
+
+### Changed:
+- Bump IDEA release version to latest.
+
+### Fixed:
+- Ensure latest IDEA major version is actually higher than the current major version
+- Switch to unified release code for IDEA
+
 ## [1.6.3] - 2025-12-10
 
 ### Changed:
