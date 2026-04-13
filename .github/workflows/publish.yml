@@ -77,8 +77,10 @@ jobs:
       - name: Prepare assets for Github Release
         run: |
           echo "Renaming assets to match Maven Central naming conventions."
-          mv kotlin-format/build/libs/kotlin-format-${{ needs.release_version.outputs.version }}-all.jar kotlin-format/build/libs/kotlin-formatter-${{ needs.release_version.outputs.version }}-all.jar
-          zip -r kotlin-format/build/distributions/kotlin-formatter-githooks-${{ needs.release_version.outputs.version }}.zip git-hooks/
+          mv "kotlin-format/build/libs/kotlin-format-${REL_VERSION}-all.jar" "kotlin-format/build/libs/kotlin-formatter-${REL_VERSION}-all.jar"
+          zip -r "kotlin-format/build/distributions/kotlin-formatter-githooks-${REL_VERSION}.zip" git-hooks/
+        env:
+          REL_VERSION: ${{ needs.release_version.outputs.version }}
 
       - name: Extract release notes
         id: release_notes
@@ -86,23 +88,25 @@ jobs:
 
       - name: Create GitHub Release
         run: >
-            gh release create ${{ needs.release_version.outputs.version }}
-                --title ${{ needs.release_version.outputs.version }}
-                --notes '${{ steps.release_notes.outputs.release_notes }}'
-                kotlin-format/build/libs/kotlin-formatter-${{ needs.release_version.outputs.version }}-all.jar
-                kotlin-format/build/distributions/kotlin-formatter-dist-${{ needs.release_version.outputs.version }}.zip
-                kotlin-format/build/distributions/kotlin-formatter-githooks-${{ needs.release_version.outputs.version }}.zip
+            gh release create "$REL_VERSION"
+                --title "$REL_VERSION"
+                --notes "$REL_NOTES"
+                "kotlin-format/build/libs/kotlin-formatter-${REL_VERSION}-all.jar"
+                "kotlin-format/build/distributions/kotlin-formatter-dist-${REL_VERSION}.zip"
+                "kotlin-format/build/distributions/kotlin-formatter-githooks-${REL_VERSION}.zip"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REL_VERSION: ${{ needs.release_version.outputs.version }}
+          REL_NOTES: ${{ steps.release_notes.outputs.release_notes }}
 
       - name: Publish Idea Plugin
         run: |
-          export IJ_PLUGIN_VERSION="${{ needs.release_version.outputs.version }}"
           echo "IJ_PLUGIN_VERSION=$IJ_PLUGIN_VERSION" >> $GITHUB_ENV
 
           ./gradlew idea-plugin:publishPlugin
         env:
           JETBRAINS_TOKEN: ${{ secrets.JETBRAINS_MARKETPLACE_SQUARE_PLUGINS }}
+          IJ_PLUGIN_VERSION: ${{ needs.release_version.outputs.version }}
 
       # Gradle caches can exceed 45GB, potentially causing "No space left on device" errors.
       # Clean up caches to free disk space.
