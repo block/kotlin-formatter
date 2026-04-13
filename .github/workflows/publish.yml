@@ -85,18 +85,13 @@ jobs:
         uses: ffurrer2/extract-release-notes@273da39a24fb7db106a35526c8162815faffd31d # v3
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2
-        with:
-          tag_name: ${{ needs.release_version.outputs.version }}
-          name: ${{ needs.release_version.outputs.version }}
-          body: |
-            ${{ steps.release_notes.outputs.release_notes }}
-          draft: false
-          prerelease: false
-          files: |
-            kotlin-format/build/libs/kotlin-formatter-${{ needs.release_version.outputs.version }}-all.jar
-            kotlin-format/build/distributions/kotlin-formatter-dist-${{ needs.release_version.outputs.version }}.zip
-            kotlin-format/build/distributions/kotlin-formatter-githooks-${{ needs.release_version.outputs.version }}.zip
+        run: >
+            gh release create ${{ needs.release_version.outputs.version }}
+                --title ${{ needs.release_version.outputs.version }}
+                --notes '${{ steps.release_notes.outputs.release_notes }}'
+                kotlin-format/build/libs/kotlin-formatter-${{ needs.release_version.outputs.version }}-all.jar
+                kotlin-format/build/distributions/kotlin-formatter-dist-${{ needs.release_version.outputs.version }}.zip
+                kotlin-format/build/distributions/kotlin-formatter-githooks-${{ needs.release_version.outputs.version }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
