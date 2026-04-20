@@ -1,0 +1,17 @@
+# Example gradle/libs.versions.toml snippet for kotlin-formatter integration
+#
+# This demonstrates how to add kotlin-formatter to your Gradle version catalog.
+#
+# Setup:
+#   1. Add the version and plugin entries to your gradle/libs.versions.toml
+#   2. Apply the plugin in your build.gradle.kts (see build.gradle.kts example)
+#
+# Always check for the latest version at:
+#   - https://github.com/block/kotlin-formatter/releases
+#   - https://central.sonatype.com/artifact/xyz.block.kotlin-formatter/kotlin-formatter
+
+[versions]
+kotlin-formatter = "1.6.3"  # Replace with latest version
+
+[plugins]
+kotlin-formatter = { id = "xyz.block.kotlin-formatter", version.ref = "kotlin-formatter" }
