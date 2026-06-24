@@ -44,7 +44,7 @@ tasks.withType<JavaCompile> {
 
 application {
   mainClass.set("xyz.block.kotlinformatter.CliKt")
-  applicationDefaultJvmArgs = listOf("--enable-native-access=ALL-UNNAMED")
+  applicationDefaultJvmArgs = listOf("--enable-native-access=ALL-UNNAMED", "--sun-misc-unsafe-memory-access=allow")
 }
 
 group = providers.gradleProperty("group").get()
