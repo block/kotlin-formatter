@@ -87,13 +87,13 @@ jobs:
         uses: ffurrer2/extract-release-notes@273da39a24fb7db106a35526c8162815faffd31d # v3
 
       - name: Create GitHub Release
-        run: >
-            gh release create "$REL_VERSION"
-                --title "$REL_VERSION"
-                --notes "$REL_NOTES"
-                "kotlin-format/build/libs/kotlin-formatter-${REL_VERSION}-all.jar"
-                "kotlin-format/build/distributions/kotlin-formatter-dist-${REL_VERSION}.zip"
-                "kotlin-format/build/distributions/kotlin-formatter-githooks-${REL_VERSION}.zip"
+        run: |
+          gh release create "$REL_VERSION" \
+            --title "$REL_VERSION" \
+            --notes "$REL_NOTES" \
+            "kotlin-format/build/libs/kotlin-formatter-${REL_VERSION}-all.jar" \
+            "kotlin-format/build/distributions/kotlin-formatter-dist-${REL_VERSION}.zip" \
+            "kotlin-format/build/distributions/kotlin-formatter-githooks-${REL_VERSION}.zip"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REL_VERSION: ${{ needs.release_version.outputs.version }}
