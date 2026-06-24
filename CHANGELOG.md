@@ -11,6 +11,13 @@
 ### Fixed:
 - Nothing yet!
 
+## [1.7.1] - 2026-06-24
+### Changed:
+- Updated some internal dependencies
+
+### Fixed:
+- Silence warnings when running with JVM 25
+
 ## [1.7.0] - 2026-03-30
 ### New:
 - ktfmt updated to 0.62
