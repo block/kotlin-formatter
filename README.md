@@ -7,6 +7,7 @@ This project provides:
 - **A command-line tool for formatting Kotlin source code files**, implemented as a wrapper around [ktfmt](https://github.com/facebook/ktfmt/tree/main).
 - **An IntelliJ idea plugin** for formatting Kotlin source code files.
 - **A gradle plugin** for formatting and checking the format of Kotlin source code files.
+- **Git hooks** for formatting and checking the format of Kotlin source code files as part of a git workflow.
 
 It can be used to automate code formatting, ensuring a **clean and consistent codebase**, while integrating seamlessly into development workflows.
 
@@ -153,7 +154,7 @@ Make sure "Optimize imports" is NOT enabled for the "Kotlin" file type.
 
 ## Gradle Plugin Overview
 The gradle plugin provides `applyFormatting` and `checkFormatting` tasks, that apply and check the formatting respectively.
-Note that `checkFormatting` checks the formatting of the **committed** code, and therefore is primarily meant to be used together with a pre-commit git hook (coming soon) that does the formatting.
+Note that `checkFormatting` checks the formatting of the **committed** code, and therefore is primarily meant to be used together with a pre-commit git hook that does the formatting.
 
 ### Usage
 You can apply the plugin by adding the necessary entry to your version catalog:
