@@ -11,6 +11,14 @@
 ### Fixed:
 - Nothing yet!
 
+## [1.8.0] - 2026-08-27
+
+### New:
+- ktfmt updated to 0.64
+
+### Changed:
+- README tweaks
+
 ## [1.7.2] - 2026-06-24
 
 ### Fixed:
