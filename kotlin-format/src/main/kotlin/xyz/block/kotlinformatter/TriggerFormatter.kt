@@ -17,7 +17,13 @@ internal class TriggerFormatter(private val formatter: Formatter) {
 
       when {
         // Already formatted
-        code == formattedCode -> FormattingResult.AlreadyFormatted(fileName)
+        code == formattedCode -> {
+          // Stdout is the only output in std streams mode, so echo the unchanged code back
+          if (formattable is FormattableStdStreams) {
+            formattable.write(code)
+          }
+          FormattingResult.AlreadyFormatted(fileName)
+        }
 
         // Dry run
         configs.dryRun -> {

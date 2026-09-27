@@ -106,13 +106,13 @@ class CliTest {
   }
 
   @Test
-  fun `return nothing if input from stdin is already formatted`() {
+  fun `return input unchanged if input from stdin is already formatted`() {
     val inputContent = TestFixtures.formattedTestExample1TestContent
     val inputStream = ByteArrayInputStream(inputContent.toByteArray(Charsets.UTF_8))
 
     val result = Cli(inputStream).test("--set-exit-if-changed -")
 
-    assertThat(result.stdout).isEmpty()
+    assertThat(result.stdout).isEqualTo(inputContent)
     assertThat(result.statusCode).isEqualTo(0)
   }
 
